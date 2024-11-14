@@ -3,47 +3,57 @@ define Ulyana = Character("Ульяна", color="c8ffc8", image="Ulyana", callba
 define Diana = Character("Диана", color="c8ffc8", image="Diana", callback=name_callback, cb_name='Diana')
 define Yana = Character("Яна", color="c8ffc8", image="Yana", callback=name_callback, cb_name='Yana')
 define Teacher = Character("Учитель", color="c8ffc8", image="Teacher", callback=name_callback, cb_name='Teacher')
-define Mask = Character("Маск", color="c8ffc8", image="Mask", callback=name_callback, cb_name='Mask')
+define Musk = Character("Маск", color="c8ffc8", image="Musk", callback=name_callback, cb_name='Musk')
 define MainHero = Character("Главный Герой", color="c9ffc9")
 define Unknown = Character("Неизвестный", color="c7ffc7", image="Unknow", callback=name_callback, cb_name='Unknow')
 define Enemy = Character("Противник", color="c7ffc7", image="Enemy", callback=name_callback, cb_name='Enemy')
 
+transform smaller: 
+    zoom 0.89
+transform tiny: 
+    zoom 0.5
+transform midleft:
+    xalign 0.3 yalign 1.0
+transform midright:
+    xalign 0.7 yalign 1.0
+transform four: 
+    zoom 0.8
 
-#Спрейты Алины
-image Alina Idle = At("Characters/Alina/idle.png", sprite_highlight('Alina'))
-image Alina Angry = At("Characters/Alina/angry.png", sprite_highlight('Alina'))
-image Alina Blush1 = At("Characters/Alina/blushing 1.png", sprite_highlight('Alina'))
-image Alina Blush2 = At("Characters/Alina/blushing 2.png", sprite_highlight('Alina'))
-image Alina Confused = At("Characters/Alina/confused.png", sprite_highlight('Alina'))
+#Спрайты Алины
+image Alina Idle = At("Characters/Alina/idle.png", sprite_highlight('Alina'), smaller)
+image Alina InGlasses = At("Characters/Alina/in glasses.png", sprite_highlight('Alina'), smaller)
+image Alina Angry = At("Characters/Alina/angry.png", sprite_highlight('Alina'), smaller)
+image Alina Blush1 = At("Characters/Alina/blushing 1.png", sprite_highlight('Alina'), smaller)
+image Alina Blush2 = At("Characters/Alina/blushing 2.png", sprite_highlight('Alina'), smaller)
+image Alina Confused = At("Characters/Alina/confused.png", sprite_highlight('Alina'), smaller)
 
 #Спрайты Учителя
-image Teacher Disappointed = At("Characters/Teacher/disappointed.png", sprite_highlight('Teacher'))
-image Teacher Angry = At("Characters/Teacher/angry.png", sprite_highlight('Teacher'))
+image Teacher Disappointed = At("Characters/Teacher/disappointed.png", sprite_highlight('Teacher'), smaller)
+image Teacher Angry = At("Characters/Teacher/angry.png", sprite_highlight('Teacher'), smaller)
 
-#Спрейты Ульяны
-image Ulyana = "Characters/Ulyana/Normal.png"
-image UlyanaHappy = "1"
+#Спрайты Ульяны
+image Ulyana Idle = At("Characters/Ulyana/idle.png", sprite_highlight('Ulyana'), smaller)
 
-#Спрейты Дианы
-image Diana Angry = At("Characters/Alina/angry.png", sprite_highlight('Diana'))
-image Diana Excited = At("Characters/Alina/excited.png", sprite_highlight('Diana'))
-image Diana Happy = At("Characters/Alina/happy.png", sprite_highlight('Diana'))
-image Diana Idle = At("Characters/Alina/idle.png", sprite_highlight('Diana'))
-image Diana Pout = At("Characters/Alina/pout.png", sprite_highlight('Diana'))
-image Diana Proud = At("Characters/Alina/Proud.png", sprite_highlight('Diana'))
-image Diana Sad = At("Characters/Alina/sad.png", sprite_highlight('Diana'))
-image Diana Thinking = At("Characters/Alina/thinking.png", sprite_highlight('Diana'))
+#Спрайты Дианы
+image Diana Idle = At("Characters/Diana/idle.png", sprite_highlight('Diana'), smaller)
+image Diana Angry = At("Characters/Diana/angry.png", sprite_highlight('Diana'), smaller)
+image Diana Excited = At("Characters/Diana/excited.png", sprite_highlight('Diana'), smaller)
+image Diana Happy = At("Characters/Diana/happy.png", sprite_highlight('Diana'), smaller)
+image Diana Pout = At("Characters/Diana/pout.png", sprite_highlight('Diana'), smaller)
+image Diana Proud = At("Characters/Diana/Proud.png", sprite_highlight('Diana'), smaller)
+image Diana Sad = At("Characters/Diana/sad.png", sprite_highlight('Diana'), smaller)
+image Diana Thinking = At("Characters/Diana/thinking.png", sprite_highlight('Diana'), smaller)
 
-#Спрейты Яны
-image Yana BeforeFight = At("Characters/Alina/angry.png", sprite_highlight('Yana'))
-image Yana Confused = At("Characters/Alina/confused.png", sprite_highlight('Yana'))
-image Yana Exausted = At("Characters/Alina/exaused.png", sprite_highlight('Yana'))
-image Yana Idle = At("Characters/Alina/idle.png", sprite_highlight('Yana'))
-image Yana Proud = At("Characters/Alina/proud.png", sprite_highlight('Yana'))
-image Yana Scared = At("Characters/Alina/scared.png", sprite_highlight('Yana'))
+#Спрайты Яны
+image Yana Idle = At("Characters/Yana/idle.png", sprite_highlight('Yana'), smaller)
+image Yana BeforeFight = At("Characters/Yana/before fight.png", sprite_highlight('Yana'), smaller)
+image Yana Confused = At("Characters/Yana/confused.png", sprite_highlight('Yana'), smaller)
+image Yana Exausted = At("Characters/Yana/exausted.png", sprite_highlight('Yana'), smaller)
+image Yana Proud = At("Characters/Yana/proud.png", sprite_highlight('Yana'), smaller)
+image Yana Scared = At("Characters/Yana/scared.png", sprite_highlight('Yana'), smaller)
 
-#Спрейты Маска
-image Mask = "Characters/Mask/Normal.png"
+#Спрайты Маска
+image Musk = "Characters/Musk/Normal.png"
 image AlinaHappy = "1"
 
 
@@ -72,17 +82,17 @@ label start:
     scene image ("BG/HeroRoom.png")
     MainHero "Вот куда мне поступать?"
 
-    scene image("BG/MonitorTurnedOn.png")
     MainHero "Посмотрим…"
 
-    scene image("BG/MonitorTurnedOff.png") with dissolve
+    scene image("BG/MonitorTurnedOn.png")
     MainHero "Столько вариантов, а я всё равно ничего не выбрал…"
 
-    scene image("BG/CeilingAboveTheBed.png")
+    scene image("BG/MonitorTurnedOff.png")
     MainHero "К чёрту это всё, потом разберусь."
 
-    scene image("BG/BlackScreen.png")
+    scene image("BG/CeilingAboveTheBed.png")
     MainHero "Сколько можно мне мозги выносить?"
+    scene image(Solid("#000000"))
     MainHero "Ладно, чуть-чуть потерпеть осталось…"
 
     scene image("BG/Cave.png")
@@ -94,18 +104,26 @@ label start:
     MainHero "Кто здесь?"
     Unknown "Ой, а ты откуда здесь?"
     MainHero "Сам не знаю. Где я вообще?"    
-    show Yana
+    show Yana Confused
     Yana "А вот этого не знаю даже я. Судя по всему, ты такой же как мы. Круто! Меня, кстати, Яна зовут."
     MainHero "«Мы»? Значит мы тут не вд…"
     ## Яна слева противники справа ?
     Enemy "ВУУАРАР!!"
     MainHero "ЭТО ЧТО ТАКОЕ?!"
-    Yana "Не парься, я знаю как его победить. Смотри и учись"
+    Yana Proud "Не парься, я знаю как его победить. Смотри и учись"
     MainHero "Постой! Это опасно!"
-    Yana "В этой жизни опасно почти всё!"
+    Yana BeforeFight "В этой жизни опасно почти всё!"
     hide Yana
+
     # Мини-игра Яны
-    show Yana
+    # $ renpy.checkpoint()
+    $ renpy.suspend_rollback(True)
+    $ config.rollback_enabled = False
+    call screen testing_screen
+    $ config.rollback_enabled = True
+    $ renpy.suspend_rollback(False)
+
+    show Yana Proud
     MainHero "Это было…. {w} Круто…"
     Yana "Хах, спасибо. А ты забавный. Стоял и смотрел как девушка в одиночку дерётся с монстром."
     MainHero "Я решил не мешать тебе.."
@@ -113,41 +131,43 @@ label start:
     hide Yana
 
     scene image("BG/CaveWithFork.png")
-    Yana "Вот тут направо. Дальше прямо, прямо и снова направо."
-    MainHero "Какая-то странная она… На неё нападает огромное существо, а она не боится. Никакого инстинкта самосохранения. Ещё двигалась как-то слишком резко. Словно телепортировалась пока не подобрала нужную комбинацию…{w}Может спросить?.."
+    Yana Confused "Вот тут направо. Дальше прямо, прямо и снова направо."
+    "Какая-то странная она… На неё нападает огромное существо, а она не боится. Никакого инстинкта самосохранения."
+    "Ещё двигалась как-то слишком резко. Словно телепортировалась пока не подобрала нужную комбинацию…{w} Может спросить?..." 
 
     scene image("BG/Cave-Corridor1.png")
-    show Yana
+    show Yana Proud
     MainHero "Яна, слушай, а почему ты так резко двигалась пока сражалась? Ещё и не царапинки на тебе, хотя он попадал."
-    Yana "А это моя сила."
+    Yana  "А это моя сила."
     MainHero "Сила?"
-    Yana "Ну да. Мы все не знаем как тут оказались, но у каждой есть какая-либо сила. Моя, например: возвращать себя и своё состояние на несколько секунд назад."
+    Yana Idle "Ну да. Мы все не знаем как тут оказались, но у каждой есть какая-либо сила. Моя, например: возвращать себя и своё состояние на несколько секунд назад."
     MainHero "Фантастика какая-то. Ты что, управляешь временем?"
-    Yana "Ха-ха-ха. Можно и так сказать. Но только своим. Я не могу влиять на мир."
+    Yana Idle "Ха-ха-ха. Можно и так сказать. Но только своим. Я не могу влиять на мир."
     MainHero "А что значит «мы»? Ты не в первый раз так говоришь."
-    Yana "Скоро узнаешь, но сначала нам нужно выбраться  отсюда."
+    Yana Idle "Скоро узнаешь, но сначала нам нужно выбраться отсюда."
     hide Yana
 
     scene image("BG/BigCave.png")
-    show Yana
+    show Yana Confused at midleft
     Yana "Тише…"
     MainHero "Что случилось?"
     MainHero "Показалось может…"
-    show Enemy
+    show Enemy at tiny, midright
     Enemy "ААААРРРРРХ!"
-    Yana "БЕЖИМ!"
+    Yana Scared "БЕЖИМ!"
     MainHero "ПОЧЕМУ ИХ ТАК МНОГО?"
-    Yana "ОНИ ЖИВУТ СТАЯМИ, НО НЕ НАСТОЛЬКО БОЛЬШИМИ!!!"
+    Yana Scared "ОНИ ЖИВУТ СТАЯМИ, НО НЕ НАСТОЛЬКО БОЛЬШИМИ!!!"
     hide Yana Enemy
 
     scene image ("BG/Cave-Corridor2.png")
-    show Yana
+    show Yana Exausted
     MainHero "Это шутка какая-то! Я очнулся в незнакомом мире и на меня тут же нападает стая каких-то монстров!"
     MainHero "Я не уже не могу бежать!"
-    Yana "Мы почти на месте! Потерпи чуть-чуть"
+    Yana Exausted "Мы почти на месте! Потерпи чуть-чуть"
     hide Yana
 
     scene image ("BG/Cave-Corridor3.png")
+    show Yana Scared
     Yana "Блин, я не помню куда идти!"
     menu:
         "Налево":
@@ -156,7 +176,7 @@ label start:
                 Yana "Ты уверен?"
                 "Да":
                     menu:
-                        Yana "ТЫ ТОЧНО УВЕРЕ?"
+                        Yana "ТЫ ТОЧНО УВЕРЕН?"
                         "Да":
                             menu:
                                 Yana "В любом случае, это только твой выбор, и винить надо будет только тебя. Ещё раз спрошу, ты уверен?"
@@ -171,21 +191,32 @@ label start:
 
         "Направо":
             $ PointYana += 1
-    Yana "Бежим"
+    Yana BeforeFight "Бежим"
+    hide Yana
 
     scene image("BG/FlowerGlade.png")
-    show Yana
+    show Yana Scared at left
     Yana "Алина! Спасай! Их там слишком много!"
-    show Alina
+    show Alina Idle at right
     Alina "Ты опять в передрягу попала?"
     Yana "Да! Спасай, Линочка!"
-    scene image("GB/AlinaPutsOnGlasses.png")
-    MainHero "А это кто с тобой?"
-    Alina "Потом расскажу!"
+    Alina "А это кто с тобой?"
+    Yana "Потом расскажу!"
+    show Alina InGlasses
     show Enemy
     Alina "Ну что, поиграем?"
     hide Enemy
+
+    hide Alina 
+    hide Yana
     ## Мини-игра Алины
+    $ renpy.suspend_rollback(True)
+    $ config.rollback_enabled = False
+    call screen terminal_screen
+    $ config.rollback_enabled = True
+    $ renpy.suspend_rollback(False)
+
+    show Alina Idle
     MainHero "Что ты сделала? Почему они встали как вкопанные?"
     Alina "Я отключила им мозг. Теперь они будут вечно тут стоять."
     MainHero "Но как?.."
@@ -194,12 +225,12 @@ label start:
     Yana "Ребят, пошли к Диане. Она, наверное, уже почти закончила."
     Alina "Да. Неплохо было бы вот этого ей показать. Идём?"
     MainHero "Мне деваться некуда. Куда вы - туда и я."
-    hide Yana Alina
+    hide Yana 
+    hide Alina
 
-    scene image("GB/ClearingInTheForest.png")
-    show Yana 
-    show Alina
-    show Diana
+    scene image("BG/EmptyField.png")
+    show Yana Confused at midright
+    show Alina Confused at midleft
     Alina "То есть, ты почти до конца дошла, а там вот этот сидит?"
     Yana "Ну да. Я так удивилась увидеть там человека! Алина, ну чего ты злая такая? Не похож он на злодея. Зато нам теперь не так скучно будет!"
     menu:
@@ -215,69 +246,94 @@ label start:
             pass
     Alina "Какой? Что это значит вообще?"
     "Они что, не помнят реальный мир?"
-    Yana "Ой, смотрите! Диана!"
-    show Diana
-    Diana "Привет, девочки! Я вот гуляла, сейчас начну делом заниматься. А вы что, уже закончили?"
-    Alina "Что? Ты ещё не начала?! Диана. Тебе было поручено важное дело. Почему ты прохлаждалась пока остальные работали?! Уже почти солнце село!"
-    Diana "Лина, ну не сердись! Ты же знаешь, что я быстро закончу. Можете посмотреть, а пока расскажите, кто это с вами."
+    Yana Idle "Ой, смотрите! Диана!"
+    show Diana Idle 
+    show Yana Idle at right
+    show Alina Idle at left
+    Diana Proud "Привет, девочки! Я вот гуляла, сейчас начну делом заниматься. А вы что, уже закончили?"
+    Alina Angry "Что? Ты ещё не начала?! Диана. Тебе было поручено важное дело. Почему ты прохлаждалась пока остальные работали?! Уже почти солнце село!"
+    Diana Excited "Лина, ну не сердись! Ты же знаешь, что я быстро закончу. Можете посмотреть, а пока расскажите, кто это с вами."
+    
+    hide Diana 
+    hide Alina 
+    hide Yana
     ## Мини-игра Дианы
+    "ТУТ МИНИ-ИГРА"
     
     scene image ("BG/GladeAtHome.png")
-    show Diana 
-    show Alina
-    show Yana
-    Diana "Вуаля! Линочка, я же говорила, что быстро закончу. Сколько это у меня заняло? Минут пять?"
+    show Diana Idle
+    show Alina Idle at right
+    show Yana Idle at left
+    Diana Proud "Вуаля! Линочка, я же говорила, что быстро закончу. Сколько это у меня заняло? Минут пять?"
     Alina "Ладно. Живи пока. Сделай ещё костёр, на огонь посмотреть хочется."
-    Yana "Да-да! И мне!"
-    Diana "Учитесь пока я жива"
+    Yana Proud "Да-да! И мне!"
+    Diana Happy "Учитесь пока я жива"
     hide Diana Alina Yana
-    ## Звуч щелчка
+
+    ## Звук щелчка
     scene image("BG/GladeAtHomeWithLogs.png")
-    show Diana 
-    show Alina
-    show Yana
+    show Diana Idle
+    show Alina Idle at right
+    show Yana Idle at left
+    scene image("BG/BonfireField.png")
+    show Diana Idle
+    show Alina Idle at right
+    show Yana Idle at left
     Yana "Ура! Сразу в разы уютнее стало!"
+    hide Diana 
+    hide Alina 
+    hide Yana
     
-    scene image("BG/Bonfire.png")
-    show Diana 
-    show Alina
-    show Yana
     $ questions = []
+
     while len(questions) < 5:
         menu:
             "Диана, это твоя сила? Ты можешь на ландшафт и окружение влиять?" if 1 not in questions:
+                show Diana Idle
                 Diana "Ну да. Мне это особых усилий не представляет. Я буквально из ничего могу предметы создавать"
+                hide Diana 
                 $ questions.append(1)
-                $ renpy.block_rollback()
+                # $ renpy.block_rollback()
             "А как давно вы тут?" if 2 not in questions:
-                Alina "Кто - как. Я — три недели, Диана - 12 дней, Яна - три месяцa"
+                show Alina Idle
+                Alina "Кто — как. Я — три недели, Диана — 12 дней, Яна — три месяцa"
+                hide Alina 
                 $ questions.append(2)
-                $ renpy.block_rollback()
+                # $ renpy.block_rollback()
             "Вы помните откуда сюда попали?" if 3 not in questions:
+                show Diana Idle
                 Diana "Нет. Мы понимаем, что не отсюда родом, но ничего толком про свой мир не помним. В лучшем случае образы и понимание, что нормально, а что нет"
+                hide Diana 
                 $ questions.append(3)
-                $ renpy.block_rollback()
+                # $ renpy.block_rollback()
             "А что вы знаете об этом месте?" if 4 not in questions:
+                show Alina Idle at midright
+                show Yana Idle at midleft
                 Yana "Людей тут нет. Ну, вернее, кроме нас. Я видела очень много разных монстров, и, насколько я поняла, 
                 они воспринимают людей как аномалию, пытаются нас схватить. Если не оказать им сопротивления, они явно тебя утащат"
                 MainHero "Утащат куда?"
                 Alina "К какому-то их предводителю. Вот про него мы и сами мало что знаем. Но, видимо, только он знает как нам домой вернуться"
-                MainHero "А вы знаете где он находится"
+                MainHero "А вы знаете где он находится?"
                 Yana "Нет. Я сегодня в ту пещеру пошла, чтобы найти его. Думали, может он что-то типо лича или вампира, но, видимо, нет. Зато нашли тебя и тех монстриков. Хорошо, что я Алину с собой взяла"
+                hide Yana 
+                hide Alina
                 $ questions.append(4)
-                $ renpy.block_rollback()
+                # $ renpy.block_rollback()
             "Ещё раз, какие у вас силы?" if 5 not in questions:
+                show Alina Idle
                 Alina "Диана может менять ландшафт, постройки возводить. Яна возвращается на несколько секунд назад во времени, а я мозги монстрам отключаю"
+                hide Alina 
                 $ questions.append(5)
-                $ renpy.block_rollback()
-    "Так. Яна перебирает все варианты, ищет слабое место и использует его, чтобы иметь преимущество, ещё и раньше всех сюда попала, Алина ищет лазейку и влияет на разум монстров, 
-    а Диана из ничего создаёт окружение… Они же… Блин, ну не может такого быть… Они же буквально тестировщик, фронтенд разработчик и специалист по информационной безопасности..."
+                # $ renpy.block_rollback()
+    "Так. Яна перебирает все варианты, ищет слабое место и использует его, чтобы иметь преимущество, ещё и раньше всех сюда попала"
+    "Алина ищет лазейку и влияет на разум монстров, а Диана из ничего создаёт окружение…"
+    "Они же… Блин, ну не может такого быть… {w} Они же буквально тестировщик, фронтенд разработчик и специалист по информационной безопасности!"
 
     scene image("BG/BlackScreen.png")
-    MainHero "… Куда я попал"
+    MainHero "… {w} Куда я попал… "
     
     scene image("BG/StarrySkyInTheFores.png")
-    "Какие же эти девочки шумные. Наконец-то тишина"
+    "Какие же эти девочки шумные! Наконец-то тишина..."
     "Так ничего я и не понял. Ну и ладно, в целом. Тут не так плохо как могло бы быть. Если не лазить по всяким пещерам, то вообще классно"
 
     scene image("BG/NightForest.png")
@@ -288,14 +344,13 @@ label start:
     "Девочки же говорили, что тут нет людей кроме нас. Это тогда кто?"
     MainHero "Подожди, успокойся. Тут рядом люди есть, они меня знают"
     Unknown "Ясно, так ты не один. Маск, схвати его!"
-    show Mask
+    show Musk
     "Что? Она злодейка? Блин-блин-блин, я не хочу!"
     MainHero "Не надо!"
     Unknown "Ты пойдёшь со мной, и это не обсуждается"
     MainHero "Да подожди, не надо! Что я тебе сделал?"
     Unknown "Шастал тут, этого достаточно"
     menu:
-        Unknown "Шастал тут, этого достаточно"
         "Давить на жалость":
             MainHero "Отпусти меня. Пожалуйста, отпусти. Я ничего плохого тебе не сделал и обещаю, что не сделаю!"
             Unknown "Конечно не сделаешь. Мы разберёмся с тобой, и больше ты не будешь представлять угрозы"
@@ -308,6 +363,10 @@ label start:
             $ PointUlyana += 1
 
     scene image("BG/NightVersionHomeAndBonfire.png")
+    show Diana Idle at right, four
+    show Ulyana Idle at midright, four
+    show Alina Idle at midleft, four
+    show Yana Idle at left, four
     Unknown "Девочки, смотрите кого я поймала!"
     Diana "Ульяна, ты что делаешь! Это наш друг!"
     Ulyana "Что?! Серьёзно?"
@@ -330,15 +389,18 @@ label start:
     MainHero "Да, вроде, да. Испугался сильнее. Пришла, не представилась и начала тащить куда-то. Я уже думал, злодейка напала"
     Ulyana "Ты кого злодейкой назвал?!"
     Yana "Ха-ха. Ну да, наша Ульяна в гневе больше на злодейку похожа. Зато когда успокоится такой доброй становится!"
-    show Mask
+    show Musk
     Alina "Ладно, пошутили и хватит. Ульяна, ты вовремя. Отправь Маска за водой, у нас вся закончилась"
     Ulyana "Хорошо. Маск!"
+
     # Мини-игра Ульяны
+    "ТУТ МИНИ-ИГРА"
+
     Ulyana "Ладно, время уже позднее, пойдёмте спать, девочки. А с тобой мы завтра поговорим"
     Diana "Вы идите, а я ещё посижу"
 
     scene image("BG/Bonfire.png")
-    show Diana
+    show Diana Idle
     Diana "Как ты думаешь, почему мы здесь оказались?"
     MainHero "Ума не приложу. Я вообще здесь первый день"
     Diana "Не просто же так нас вырвали из привычной жизни, оторвали от семьи и друзей и закинули сюда?"
@@ -359,11 +421,11 @@ label start:
             MainHero "Я постараюсь"
             Diana "Ладно, я тоже спать пойду"
             scene image("BG/BlackScreen.png")
-            MainHero "Они все такие разные. Такие яркие. Интересно, и как же я собрался выполнять обещание? Надо будет что-то придумать"
+            "Они все такие разные. Такие яркие. Интересно, и как же я собрался выполнять обещание? Надо будет что-то придумать"
     hide Diana
     
     scene image("BG/Bonfire.png")
-    show Alina
+    show Alina Idle
     Alina "Ты всё сидишь?"
     MainHero "Ну да. Пытаюсь переварить то, что за день произошло"
     Alina "Вставай, поможешь мне"
@@ -371,7 +433,7 @@ label start:
     Alina "Увидишь"
 
     scene image("BG/NightGladeWithHouseAndFire.png")
-    show Alina
+    show Alina Idle
     show Enemy
     Alina "Ночью они вообще везде гуляют, иногда и к нам забредают"
     MainHero "Монстры что-ли?"
@@ -385,6 +447,7 @@ label start:
         "Помочь Алине":
             MainHero "Хорошо"
             scene image("BG/BlackScreen.png")
+    return
             
 
 label TurnLeft:
