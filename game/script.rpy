@@ -1,39 +1,51 @@
-﻿define Alina = Character("Алина", color="c8ffc8")
-define Ulyana = Character("Ульяна", color="c8ffc8")
-define Diana = Character("Диана", color="c8ffc8")
-define Yana = Character("Яна", color="c8ffc8")
-define Teacher = Character("Учитель", color="c8ffc8")
-define Mask = Character("Маск", color="c8ffc8")
+﻿define Alina = Character("Алина", color="c8ffc8", image="Alina", callback=name_callback, cb_name='Alina')
+define Ulyana = Character("Ульяна", color="c8ffc8", image="Ulyana", callback=name_callback, cb_name='Ulyana')
+define Diana = Character("Диана", color="c8ffc8", image="Diana", callback=name_callback, cb_name='Diana')
+define Yana = Character("Яна", color="c8ffc8", image="Yana", callback=name_callback, cb_name='Yana')
+define Teacher = Character("Учитель", color="c8ffc8", image="Teacher", callback=name_callback, cb_name='Teacher')
+define Mask = Character("Маск", color="c8ffc8", image="Mask", callback=name_callback, cb_name='Mask')
 define MainHero = Character("Главный Герой", color="c9ffc9")
-define Unknown = Character("Неизвестный", color="c7ffc7")
-define Enemy = Character("Противник", color="c7ffc7")
+define Unknown = Character("Неизвестный", color="c7ffc7", image="Unknow", callback=name_callback, cb_name='Unknow')
+define Enemy = Character("Противник", color="c7ffc7", image="Enemy", callback=name_callback, cb_name='Enemy')
 
 
 #Спрейты Алины
-image Alina = "Characters/Alina/Normal.png"
-image AlinaHappy = "1"
+image Alina Idle = At("Characters/Alina/idle.png", sprite_highlight('Alina'))
+image Alina Angry = At("Characters/Alina/angry.png", sprite_highlight('Alina'))
+image Alina Blush1 = At("Characters/Alina/blushing 1.png", sprite_highlight('Alina'))
+image Alina Blush2 = At("Characters/Alina/blushing 2.png", sprite_highlight('Alina'))
+image Alina Confused = At("Characters/Alina/confused.png", sprite_highlight('Alina'))
 
 #Спрайты Учителя
-image Teacher = "1"
+image Teacher Disappointed = At("Characters/Teacher/disappointed.png", sprite_highlight('Teacher'))
+image Teacher Angry = At("Characters/Teacher/angry.png", sprite_highlight('Teacher'))
 
 #Спрейты Ульяны
 image Ulyana = "Characters/Ulyana/Normal.png"
 image UlyanaHappy = "1"
 
 #Спрейты Дианы
-image Diana = "Characters/Diana/Normal.png"
-image DianaHappy = "1"
+image Diana Angry = At("Characters/Alina/angry.png", sprite_highlight('Diana'))
+image Diana Excited = At("Characters/Alina/excited.png", sprite_highlight('Diana'))
+image Diana Happy = At("Characters/Alina/happy.png", sprite_highlight('Diana'))
+image Diana Idle = At("Characters/Alina/idle.png", sprite_highlight('Diana'))
+image Diana Pout = At("Characters/Alina/pout.png", sprite_highlight('Diana'))
+image Diana Proud = At("Characters/Alina/Proud.png", sprite_highlight('Diana'))
+image Diana Sad = At("Characters/Alina/sad.png", sprite_highlight('Diana'))
+image Diana Thinking = At("Characters/Alina/thinking.png", sprite_highlight('Diana'))
 
 #Спрейты Яны
-image Yana = "Characters/Yana/Normal.png"
-image YanaHappy = "1"
+image Yana BeforeFight = At("Characters/Alina/angry.png", sprite_highlight('Yana'))
+image Yana Confused = At("Characters/Alina/confused.png", sprite_highlight('Yana'))
+image Yana Exausted = At("Characters/Alina/exaused.png", sprite_highlight('Yana'))
+image Yana Idle = At("Characters/Alina/idle.png", sprite_highlight('Yana'))
+image Yana Proud = At("Characters/Alina/proud.png", sprite_highlight('Yana'))
+image Yana Scared = At("Characters/Alina/scared.png", sprite_highlight('Yana'))
 
 #Спрейты Маска
 image Mask = "Characters/Mask/Normal.png"
 image AlinaHappy = "1"
 
-#Спрайты Учителя
-image Teacher = "1"
 
 #Очки персонажей
 define PointYana = 0
@@ -43,11 +55,12 @@ define PointDiana = 0
 label start:
     scene image("BG/ClassRoom.png")
     MainHero "Эх, когда же они уже отстанут от меня…"
+    show Teacher Angry
     Teacher "Уже май, экзамены через две недели. Ты когда определишься со своим будущим?!"
     MainHero "Она снова кричит… Зачем?.."
-    Teacher "Ты не понимаешь, что это очень важно? Это решение буквально всю твою жизнь определяет."
+    Teacher Disappointed "Ты не понимаешь, что это очень важно? Это решение буквально всю твою жизнь определяет."
     MainHero "Ну и что? Время ещё есть. Мне же не через неделю документы подавать."
-    Teacher "Почему все твои одноклассники уже давно определились, а ты всё тянешь?"
+    Teacher Disappointed "Почему все твои одноклассники уже давно определились, а ты всё тянешь?"
 
     scene image("BG/ResidentialAreaCourtyard.png") with dissolve
     MainHero "«Почему?». А я что, знаю что-ли?"
