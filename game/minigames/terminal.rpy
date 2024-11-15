@@ -60,16 +60,17 @@ default terminal_lines = ["Добро пожаловать в Alinux 14.88 LTS\n
 default command_text = ""
 define prompt_visible = True
 default console_state = ""
+default is_first = True
 
 python early:
     import random
     network = {
         "6.4.1.9": ["известный IP (alina)", "Имя хоста: Alina\nЭтот хост является доверенным, поиск уязвимостей запрещён", True],
-        "42.5.4.2": ["", "Имя хоста: stone\nК данному хосту невозможно подключится", True],
+        "42.5.4.2": ["", "Имя хоста: stone\nК данному хосту невозможно подключиться", True],
         "2.4.84.4": ["", "Имя хоста: monster_2\nУ данного хоста обнаружена уязвимость\n- SQL-инъекция (использовать sqlmap)", True],
         "42.5.5.76": ["известный IP (diana)", "Имя хоста: Diana\nЭтот хост является доверенным, поиск уязвимостей запрещён", True],
         "4.9.6.7": ["известный IP (yana)", "Имя хоста: Yana\nЭтот хост является доверенным, поиск уязвимостей запрещён", True],
-        "4.2.2.8": ["", "Имя хоста: tree\nК данному хосту невозможно подключится", True],
+        "4.2.2.8": ["", "Имя хоста: tree\nК данному хосту невозможно подключиться", True],
         "9.11.3.8": ["", "Имя хоста: monster_1\nУ данного хоста обнаружена уязвамость\n - слабый пароль (использовать hydra)",True],
         "7.7.7.7": ["известный IP (ulyana)", "Имя хоста: Ulyana\nЭтот хост является доверенным, поиск уязвимостей запрещён", True],
         "14.8.5.8": ["", "Имя хоста: monster_3\nУ данного хоста обнаружена уязвимость:\n- слабый алгоритм хеширования пароля (использовать hashcat)", True],
@@ -89,15 +90,17 @@ python early:
     
     def help():
         commands = [
-            " - help           список доступных комманд",
-            " - scan           просканировать сеть/хост",
-            " - connect <ip>   подключение к заданному IP-адресу" ,
-            " - hashcat        мощный взламыватель алгоритмов хеширования и шифрования",
-            " - sqlmap         утилита для поиска и эксплуатации SQL-инъекций",
-            " - hydra          утилита для перебора паролей по различным протоколам",
-            " - ls             список всех файлов",
-            " - cat <filename> чтение файла",
-            " - exit           выход из системы"
+            "Список доступных команд:",
+            " - help              список доступных команд",
+            " - scan <ip/network> просканировать сеть/хост",
+            " - connect <ip>      подключение к заданному IP-адресу" ,
+            " - hashcat           мощный взламыватель алгоритмов хеширования и шифрования",
+            " - sqlmap            утилита для поиска и эксплуатации SQL-инъекций",
+            " - hydra             утилита для перебора паролей по различным протоколам",
+            " - ls                список всех файлов",
+            " - cat <filename>    чтение файла",
+            " - exit              выход из системы",
+            "Чтобы узнать как использовать команду, введите её название без параметров"
         ]
         for command in commands:
             terminal_lines.append(command)
@@ -211,7 +214,7 @@ python early:
         
 
     def terminal_command_handler(command: str):
-        global terminal_lines, console_state
+        global terminal_lines, console_state, is_first
         if console_state.startswith("login"):
             terminal_lines.append(f"Введите пароль: {command}")
             renpy.invoke_in_new_context(renpy.pause, 2, _clear_layers=False)
@@ -241,16 +244,20 @@ python early:
                 renpy.invoke_in_new_context(Alina, "Нет! Так не пойдет, нужно завалить всех троих.", _clear_layers=False)
 
         elif command == "help":
-            renpy.invoke_in_new_context(help, _clear_layers=False)
+            renpy.invoke_in_new_context(help, _clear_layers=False)       
+            
+            if is_first:
+                is_first = False
+                renpy.invoke_in_new_context(Alina, "Так... Для начала нужно просканировать сеть", _clear_layers=False)
 
         elif command.startswith("scan"):
             args = command.split()
-            if args[1] == "network":   
+            if len(args) != 2:
+                terminal_lines.append(" - scan network   сканирование всех IP-адресов поблизости\n - scan <ip>      получение информации о хосте")
+            elif args[1] == "network":   
                 renpy.invoke_in_new_context(scan_network, _clear_layers=False)
             elif len(args) == 2:
                 renpy.invoke_in_new_context(scan_ip, args[1], _clear_layers=False)
-            else:
-                terminal_lines.append(" - scan network   сканирование всех IP-адресов поблизости\n - scan <ip>      получение информации о хосте")
                 
         elif command.startswith("hashcat"):
             args = command.split()
@@ -275,7 +282,7 @@ python early:
             if len(args) == 4:
                 renpy.invoke_in_new_context(hydra, ip=args[2], file_name=args[3], _clear_layers=False)
             else:
-                terminal_lines.append(" - hydra crack <ip> <file.txt>\nперебирает пароли из словаря\n <ip>          адрес хоста \n<file.txt>    список паролей")
+                terminal_lines.append("перебирает пароли из словаря\n - hydra crack <ip> <file.txt>\n <ip>          адрес хоста \n<file.txt>    список паролей")
                 
 
         elif command.startswith("connect"):
@@ -326,7 +333,7 @@ python early:
 
 
 style terminal_frame:
-    background "#0000007c"
+    background "#000000d0"
     padding (20, 20)
 
 style terminal_vbox:
