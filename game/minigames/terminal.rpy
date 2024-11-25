@@ -15,6 +15,12 @@ screen terminal_screen:
         align (0.5, 0.5)
         xysize (1640, 920)
 
+        if dead_count > 0 and prompt_visible:
+            imagebutton:
+                align (0.95, 0.05)
+                idle "UI/skip.png"
+                action Return(True)
+
         vbox:
             spacing 10
 
@@ -43,6 +49,7 @@ screen terminal_screen:
                         input:
                             id "command_input"
                             default ""
+                            copypaste True
                             prefix prefix
                             style "input_field"
                             caret Fixed(At(Text("_", style="input_field"), blink_cursor), xsize=0)
@@ -60,7 +67,10 @@ default terminal_lines = ["Добро пожаловать в Alinux 14.88 LTS\n
 default command_text = ""
 define prompt_visible = True
 default console_state = ""
-default is_first = True
+default dead_count = 0
+default show_help_hint = True
+default show_scan_hint = True
+default show_hack_hint = True
 
 python early:
     import random
@@ -80,9 +90,9 @@ python early:
     passwords = ["admin", "12345678", "password", "qwerty", "123123123", "321321321", "qwerty123", "StrongPassword", "pA$$w0rd", "root", "password123", "Admin", "asdfasdf", "gsdgdskw3"]
 
     monsters = {
-        "2.4.84.4": "amogus228",
+        "2.4.84.4": "p55yba9ro",
         "9.11.3.8": passwords[6],
-        "14.8.5.8": "kurwabober1488"
+        "14.8.5.8": "mu086t6i"
     }
 
     def is_offline():
@@ -138,7 +148,8 @@ python early:
                 terminal_lines.append(message)
                 renpy.pause(1)
             renpy.pause(2)
-            terminal_lines.append("\nПароль найден: kurwabober1488")
+            terminal_lines.append(f"\nПароль найден: {monsters['14.8.5.8']}")
+            show_hint()
         elif ip in ["2.4.84.4", "9.11.3.8"]:
             terminal_lines.append("ОШИБКА: На данном сервере не найдена уязвимость")    
         else:
@@ -173,6 +184,7 @@ python early:
             terminal_lines.append(message)
             renpy.pause(1)
         terminal_lines.append(f"+---------------------+\n| user |   password   |\n+---------------------+\n| root | {monsters[ip].center(12)} |\n+---------------------+")
+        show_hint()
         
     def hydra(ip, file_name):
         if ip == "9.11.3.8" and file_name == "passwords.txt":
@@ -181,6 +193,7 @@ python early:
                 renpy.pause(0.5)
             terminal_lines.append("Найдено совпадение!")
             terminal_lines.append(f"Пароль {monsters[ip]}")
+            show_hint()
         elif ip == "9.11.3.8" and file_name != "passwords.txt":
             terminal_lines.append("ОШИБКА: Указанный файл не найден")
         elif ip in ["2.4.84.4", "14.8.5.8"]: 
@@ -211,10 +224,17 @@ python early:
                 terminal_lines.append(i)
         else:
             terminal_lines.append("ОШИБКА: Указанный файл не найден")
+
+    
+    def show_hint():
+        global show_hack_hint
+        if show_hack_hint:
+            show_hack_hint = False
+            renpy.invoke_in_new_context(Alina, "Ха-ха, это было просто! Теперь нужно подключиться к нему и выключить", _clear_layers=False)
         
 
     def terminal_command_handler(command: str):
-        global terminal_lines, console_state, is_first
+        global terminal_lines, console_state, show_help_hint, show_scan_hint
         if console_state.startswith("login"):
             terminal_lines.append(f"Введите пароль: {command}")
             renpy.invoke_in_new_context(renpy.pause, 2, _clear_layers=False)
@@ -246,8 +266,8 @@ python early:
         elif command == "help":
             renpy.invoke_in_new_context(help, _clear_layers=False)       
             
-            if is_first:
-                is_first = False
+            if show_help_hint:
+                show_help_hint = False
                 renpy.invoke_in_new_context(Alina, "Так... Для начала нужно просканировать сеть", _clear_layers=False)
 
         elif command.startswith("scan"):
@@ -256,6 +276,10 @@ python early:
                 terminal_lines.append(" - scan network   сканирование всех IP-адресов поблизости\n - scan <ip>      получение информации о хосте")
             elif args[1] == "network":   
                 renpy.invoke_in_new_context(scan_network, _clear_layers=False)
+            
+                if show_scan_hint:
+                    show_scan_hint = False
+                    renpy.invoke_in_new_context(Alina, "Вот они! Теперь нужно просканировать каждого...", _clear_layers=False)
             elif len(args) == 2:
                 renpy.invoke_in_new_context(scan_ip, args[1], _clear_layers=False)
                 
@@ -303,7 +327,6 @@ python early:
         else:
             terminal_lines.append(f"Неизвестная команда: '{command}'")
 
-    dead_count = 0
     def monter_command_handler(command):
         command = command.replace("[", "").replace("{", "").strip().lower().strip('\n')
         host, ip = console_state.split()
@@ -322,10 +345,11 @@ python early:
             
             if dead_count == 1:
                 renpy.invoke_in_new_context(Alina, "Ура! Первый готов.", _clear_layers=False)
+                renpy.invoke_in_new_context(Alina, "Осталось ещё два...", _clear_layers=False)
             elif dead_count == 2:
-                renpy.invoke_in_new_context(Alina, "СОСАТЬ РАКИ!!!", _clear_layers=False) #Минус два, дело за малым.
+                renpy.invoke_in_new_context(Alina, "Минус два, дело за малым.", _clear_layers=False)
             else:
-                renpy.invoke_in_new_context(Alina, "ЕСС! МИНУС ТРИ!! ЮХУУ", _clear_layers=False)
+                renpy.invoke_in_new_context(Alina, "ЕСС! МИНУС ТРИ!!", _clear_layers=False)
                 renpy.invoke_in_new_context(Alina, "Все готово! Можно выходить из системы", _clear_layers=False)
         else:
             terminal_lines.append(f"Неизвестная команда: '{command}'")

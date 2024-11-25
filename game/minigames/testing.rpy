@@ -1,45 +1,72 @@
+style title_text:
+    font "fonts/NineteenEightySeven.ttf"
+    color "#dfe8e2"
+    size 35
+    
+style text_style:
+    font "fonts/NineteenEightySeven.ttf"
+    color "#dfe8e2"
+    size 25
+
+style button_style is text_style:
+    idle_color "#616161"
+    hover_color "#ffffff"
+
+style button:
+    size 30
+
 screen testing_screen:
-    # TODO: сделать красиво
     frame:
         align (0.5, 0.5)
-        xysize (980, 350)
+        xysize (1000, 500)
+        text "Последовательность действий:" style "title_text":
+            align (0.5, 0.1)
 
         vbox:
-            spacing 20
+            spacing 50
+            align (0.5, 0.5)
 
-            text "Текущая последовательность:"
             hbox:
+                align (0.5, 0.5)
                 spacing 10
                 for i in range(max_sequence_length):
                     fixed:
                         xysize (50, 50)
                         if len(current_sequence) > i:
-                            text current_sequence[i]
+                            text current_sequence[i] style "title_text"
                         else:
-                            text "_"
-                textbutton "<-":
+                            text "_" style "title_text"
+                imagebutton:
+                    idle "UI/backspace.png"
+                    hover "UI/backspace_inactive.png"
                     action Function(erase_last)
       
             hbox:
+                align (0.5, 0.5)
+                text "Действия: " style "title_text"
                 spacing 10
                 for i in allowed_chars:
                     fixed:
                         xysize (50, 50)
                         textbutton i:
+                            style "button"
+                            idle_background "UI/button.png"
+                            hover_background "UI/button_active.png"
                             if len(current_sequence) < max_sequence_length:
                                 action IncrementVariable("current_sequence", amount=i)
 
             if error != "":
                 hbox:
-                    text "ошибка: "
-                    text error
+                    text "Ошибка: " color "#ff0000" style "text_style"
+                    text error style "text_style"
 
-            hbox:
-                spacing 10
-                textbutton "очистить":
-                    action [SetVariable("current_sequence", ""), SetVariable("error", "")]
-                textbutton "проверить":
-                    action Function(check_sequence)
+        hbox:
+            ypos 430
+            spacing 10
+            textbutton "очистить" text_style "button_style":
+                action [SetVariable("current_sequence", ""), SetVariable("error", "")]
+            textbutton "проверить" text_style "button_style":
+                action Function(check_sequence)
                 # button:
                     # child Text("123")
 
@@ -56,11 +83,11 @@ python early:
     def check_sequence():
         global current_sequence, error
         if len(current_sequence) < 7:
-            error = "должно быть не меньше 7-х действий"
+            error = "должно быть не меньше семи действий"
         elif current_sequence.count(current_sequence[0]) == len(current_sequence):
-            error = "действия должны быть разными - будь креативнее"
+            error = "действия должны быть разными"
         elif "🤜" not in current_sequence:
-            error = "должно быть хотя бы 1 действие 🤜 - или зассал"
+            error = "должно быть хотя бы 1 действие 🤜"
         elif "🤜🤜" in current_sequence:
             error = "нельзя использовать 🤜 два раза подряд - устанешь"
         elif current_sequence.count("🏹") > 3:
@@ -74,7 +101,7 @@ python early:
         elif "🤜🦶" in current_sequence or "🦶🤜" in current_sequence:
             error = "нельзя использовать 🦶 и 🤜 рядом - можно потерять равновесие"
         elif "🦶" not in current_sequence:
-            error = "должно быть хотя бы 1 действие 🦶 - нужно размять ноги перед бегом"
+            error = "должно быть хотя бы 1 действие 🦶 - нужно размять ноги"
         elif current_sequence.count("🤜") > 2:
             error = "нельзя использовать 🤜 больше двух раз - руки устанут"
         elif current_sequence.count("🦶") > 3:
