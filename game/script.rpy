@@ -307,7 +307,8 @@ label start:
     $ renpy.suspend_rollback(True)
     $ config.rollback_enabled = False
     show screen backend_screen
-    Alina "Эй, Маск! Иди к колодцу и набери воды."
+    Ulyana "Эй, Маск! Иди к колодцу и набери воды."
+    "Напиши алгоритм для Маска, чтобы он подошел к колодцу и взял из него воду."
     call screen backend_screen
     pause 1.0
     $ config.rollback_enabled = True
@@ -629,13 +630,13 @@ label start:
     Diana "Удачи, девочки! Берегите себя!"
     scene black with Pause(2.0)
     if CastleChoice == "Yana":
-        call CastleWithYana
+        call CastleWithYana from _call_CastleWithYana
     elif CastleChoice == "Alina":
-        call CastleWithAlina
+        call CastleWithAlina from _call_CastleWithAlina
     elif CastleChoice == "Diana":
-        call CastleWithDiana
+        call CastleWithDiana from _call_CastleWithDiana
     else:
-        call CastleWithUlyana
+        call CastleWithUlyana from _call_CastleWithUlyana
     return
             
 

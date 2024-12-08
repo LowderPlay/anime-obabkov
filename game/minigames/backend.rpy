@@ -31,6 +31,7 @@ define velocity = 0
 define damaged = False
 define progress = 0
 define has_bucket = 0
+define first_fail = True
 
 init python:
     def should_animate(a, b, c):
@@ -164,7 +165,7 @@ screen backend_screen:
                 imagebutton:
                     idle "UI/backend/start.png"
                     insensitive "UI/backend/start_inactive.png"
-                    action Function(move_robot) sensitive (velocity == 0)
+                    action [Function(move_robot), Function(show_help)] sensitive (velocity == 0)
                 imagebutton:
                     idle "UI/backend/reset.png"
                     action [SetVariable("commands", [[]]), SetVariable("current_step", 0), SetVariable("x", 1), SetVariable("y", 7)]
@@ -215,6 +216,12 @@ python early:
 
         commands[who.drag_name], commands[where.drag_name] = commands[where.drag_name], commands[who.drag_name]
         renpy.restart_interaction()
+
+    def show_help():
+        global first_fail
+        if damaged and first_fail:
+            first_fail = False
+            renpy.invoke_in_new_context(narrator, "Не получилось... Маску нужно обойти все препятствия и дойти до колодца, а затем набрать в нем воду.", _clear_layers=False)
 
     def move_robot():
         global x, y, direction, velocity, damaged, has_bucket, progress
