@@ -63,17 +63,17 @@ screen testing_screen:
         hbox:
             ypos 430
             spacing 10
-            textbutton "очистить" text_style "button_style":
-                action [SetVariable("current_sequence", ""), SetVariable("error", "")]
             textbutton "проверить" text_style "button_style":
                 action Function(check_sequence)
+            textbutton "очистить" text_style "button_style":
+                action [SetVariable("current_sequence", ""), SetVariable("error", "")]
                 # button:
                     # child Text("123")
 
 default max_sequence_length = 10
 default current_sequence = ""
 default allowed_chars = "🏹🔪🤜🦶🍔"
-default sounds = ["bow.wav", "knife.wav", "hit.wav", "kick.wav", "food.wav"]
+default sounds = ["shot.mp3", "cut.mp3", "hit.mp3", "kick.mp3", "eat.mp3"]
 default error = ""
 
 python early:
