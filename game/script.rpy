@@ -4,9 +4,11 @@ define Diana = Character("Диана", color="#fc4db6", image="Diana", callback=
 define Yana = Character("Яна", color="#e48942", image="Yana", callback=name_callback, cb_name='Yana')
 define Teacher = Character("Учитель", color="#dad4db", image="Teacher", callback=name_callback, cb_name='Teacher')
 define Musk = Character("Маск", color="#814e41", image="Musk", callback=name_callback, cb_name='Musk')
-define MainHero = Character("Главный Герой", color="#969696")
+define MainHero = Character("Юра", color="#969696")
 define Unknown = Character("Неизвестный", color="#c7ffc7", image="Unknow", callback=name_callback, cb_name='Unknown')
 define Enemy = Character("Противники", color="#47587e", image="Enemy", callback=name_callback, cb_name='Enemy')
+define Girl = Character("Девочка", color="#c7ffc7")
+
 
 transform smaller: 
     zoom 0.89
@@ -76,6 +78,8 @@ define PointAlina = 0
 # C кем мы пойдём в замок
 define CastleChoice = ""
 
+define FinalChoice = ""
+
 label start:
     show text "{size=+20}ГЛАВА 1\nПролог" with ComposeTransition(Pause(2), after=dissolve)
     scene black with dissolve
@@ -85,50 +89,51 @@ label start:
     $ renpy.block_rollback()
     pause 3
 
-    MainHero "Эх, когда же они уже отстанут от меня..."
-    show Teacher Angry
+    "Эх, когда же они уже отстанут от меня..."
+    show Teacher Angry 
     Teacher "Уже май, экзамены через две недели. Ты когда определишься со своим будущим?!"
-    MainHero "Она снова кричит... Зачем?.."
+    "Она снова кричит... Зачем?.."
     Teacher Disappointed "Ты не понимаешь, что это очень важно? Это решение буквально всю твою жизнь определяет."
-    MainHero "Ну и что? Время ещё есть. Мне же не через неделю документы подавать."
-    Teacher Disappointed "Почему все твои одноклассники уже давно определились, а ты всё тянешь?"
+    "Ну и что? Время ещё есть. Мне же не через неделю документы подавать."
+    Teacher Angry "Почему все твои одноклассники уже давно определились, а ты всё тянешь?"
 
-    play music "toska.ogg"
+    play music "toska.ogg" volume 0.4
     scene image("BG/ResidentialAreaCourtyard.png") with dissolve
-    MainHero "«Почему?». А я что, знаю что-ли?"
-    MainHero "Может они мега-гении, которые с семи лет знают, чего хотят от жизни."
-    MainHero "Может им родители сказали, что делать."
-    MainHero "Может у них есть кто-то, кто может подсказать как поступить..."
-    MainHero "У меня даже друзей нет, с которыми можно было бы посоветоваться..."
-    MainHero "Откуда мне знать, куда я хочу поступать?.."
-    MainHero "Я вообще по жизни ничего не хочу. Хочу чтобы меня никто не трогал и не надоедал бесполезной чушью. Мне бы в компик поиграть и чтоб еда была. Большего не прошу."    
+    "«Почему?». А я что, знаю что-ли?"
+    "Может они мега-гении, которые с семи лет знают, чего хотят от жизни."
+    "Может им родители сказали, что делать."
+    "Может у них есть кто-то, кто может подсказать как поступить..."
+    "У меня даже друзей нет, с которыми можно было бы посоветоваться..."
+    "Откуда мне знать, куда я хочу поступать?.."
+    "Я вообще по жизни ничего не хочу. Хочу чтобы меня никто не трогал и не надоедал бесполезной чушью. Мне бы в компик поиграть и чтоб еда была. Большего не прошу."    
 
 
     scene image ("BG/HeroRoom.png")
-    MainHero "Вот куда мне поступать?"
+    "Вот куда мне поступать?"
 
-    MainHero "Посмотрим..."
+    "Посмотрим..."
 
+    stop music fadeout 1.0
     scene image("BG/MonitorTurnedOn.png")
-    MainHero "Столько вариантов, а я всё равно ничего не выбрал..."
+    "Столько вариантов, а я всё равно ничего не выбрал..."
 
     scene image("BG/MonitorTurnedOff.png")
-    MainHero "К чёрту это всё, потом разберусь."
+    "К чёрту это всё, потом разберусь."
 
     scene image("BG/HeroRoom.png")
-    MainHero "Сколько можно мне мозги выносить?"
+    "Сколько можно мне мозги выносить?"
 
     scene black with dissolve
 
-    MainHero "Ладно, чуть-чуть потерпеть осталось..."
+    "Ладно, чуть-чуть потерпеть осталось..."
 
-    play music "cave.ogg" fadein 1.0
+    play music "cave.ogg" fadein 2.0
     scene image("BG/Cave.png")
-    MainHero "Что? Я где?"
-    MainHero "Куда я попал?"
-    MainHero "Ужас, как тут сыро"
+    "Что? Я где?"
+    "Куда я попал?"
+    "Ужас, как тут сыро"
     # Звук шагов
-    MainHero "Мне не показалось?"
+    "Мне не показалось?"
     MainHero "Кто здесь?"
     Unknown "Ой, а ты откуда здесь?"
     MainHero "Сам не знаю. Где я вообще?"    
@@ -136,8 +141,9 @@ label start:
     Yana "А вот этого не знаю даже я. Судя по всему, ты такой же как мы. Круто! Меня, кстати, Яна зовут."
     show Yana Idle
     MainHero "«Мы»? Значит мы тут не вд..."
+    show Yana Scared at midleft
     ## Яна слева противники справа ?
-    play sound "monster1.mp3"
+    play sound "monster1.mp3" volume 0.5
     show Enemy Single at midright_center, scale(0.7)
     Enemy "ВУУАРАР!!"
     show Yana Confused
@@ -166,12 +172,12 @@ label start:
     Yana Idle "Правильно сделал. Боюсь, если бы ты полез, от тебя бы и мокрого места не осталось. Давай двигаться к выходу, он явно тут не один."
     hide Yana
 
-    scene image("BG/CaveWithFork.png")
+    scene image("BG/CaveWithFork.png") with fade
     Yana Confused "Вот тут направо. Дальше прямо, прямо и снова направо."
     "Какая-то странная она... На неё нападает огромное существо, а она не боится. Никакого инстинкта самосохранения."
     "Ещё двигалась как-то слишком резко. Словно телепортировалась пока не подобрала нужную комбинацию...{w} Может спросить?..." 
 
-    scene image("BG/Cave-Corridor1.png")
+    scene image("BG/Cave-Corridor1.png") with fade
     show Yana Confused
     MainHero "Яна, слушай, а почему ты так резко двигалась пока сражалась? Ещё и не царапинки на тебе, хотя он попадал."
     Yana Idle "А это моя сила."
@@ -187,22 +193,23 @@ label start:
     show Yana Confused at midleft
     Yana "Тише..."
     MainHero "Что случилось?"
-    MainHero "Показалось может..."
+    "Показалось может..."
     show Enemy Multiple at midright_center, scale(0.7)
     play sound "monsters.ogg"
+    show Yana Scared
     Enemy "ААААРРРРРХ!"
-    Yana Scared "БЕЖИМ!"
+    Yana  "БЕЖИМ!"
     MainHero "ПОЧЕМУ ИХ ТАК МНОГО?"
-    Yana Scared "ОНИ ЖИВУТ СТАЯМИ, НО НЕ НАСТОЛЬКО БОЛЬШИМИ!!!"
+    Yana  "ОНИ ЖИВУТ СТАЯМИ, НО НЕ НАСТОЛЬКО БОЛЬШИМИ!!!"
     hide Yana Enemy
 
     scene image ("BG/Cave-Corridor2.png")
-    show Yana Exhausted
     MainHero "Это шутка какая-то! Я очнулся в незнакомом мире и на меня тут же нападает стая каких-то монстров!"
     MainHero "Я не уже не могу бежать!"
-    Yana Exhausted "Мы почти на месте! Потерпи чуть-чуть"
+    show Yana Exhausted
+    Yana "Мы почти на месте! Потерпи чуть-чуть"
     hide Yana
-
+    
     scene image ("BG/Cave-Corridor3.png")
     show Yana Scared
     Yana "Блин, я не помню куда идти!"
@@ -245,14 +252,15 @@ label start:
     show Alina InGlasses
     show Enemy
     Alina "Ну что, поиграем?"
+    play music ["<silence 2>", "hacking.ogg"] 
+    #scene image("BG/FlowerGlade.png") with testfade
+    show screen terminal_screen with Fade(1.0, 2.5, .001)
     hide Enemy
-
     hide Alina 
-    hide Yana
+    hide Yana 
     ## Мини-игра Алины
     $ renpy.suspend_rollback(True)
     $ config.rollback_enabled = False
-    play music "hacking.ogg"
     call screen terminal_screen
     $ config.rollback_enabled = True
     $ renpy.suspend_rollback(False)
@@ -278,19 +286,6 @@ label start:
     show Alina Confused at midleft
     Alina "То есть, ты почти до конца дошла, а там вот этот сидит?"
     Yana "Ну да. Я так удивилась увидеть там человека! Алина, ну чего ты злая такая? Не похож он на злодея. Зато нам теперь не так скучно будет!"
-    menu:
-        Alina "Да странно всё это... Вот откуда ты взялся?"
-        "Казахстанский я":
-            pass
-        "Уральский я":
-            ## Былла кому?(балл главному герою)
-            pass
-        "Сибирский я":
-            pass
-        "Московский я":
-            pass
-    Alina "Какой? Что это значит вообще?"
-    "Они что, не помнят реальный мир?"
     Yana Idle "Ой, смотрите! Диана!"
     show Diana Idle 
     show Yana Idle at right
@@ -586,58 +581,79 @@ label start:
     Я стал не таким бесполезным. Все понимали, что разговаривать злыдень, скорее всего, не станет."
     "На этот случай Ульяна при помощи Алины разработала план действий. И, когда мы уже почти достигли цели, у нас состоялся последний разговор."
 
+
+
     scene image("BG/Bonfire.png")
-    show Ulyana
+    show Yana Idle at midleft, four
+    show Ulyana Idle at midright, four
+    show Diana Idle at left, four
+    show Alina Idle at right, four
     Ulyana "Тебе нельзя биться в одиночку, ты далеко не идеально владеешь силами. Лучше, если ты будешь помогать кому-то из нас."
-    show Alina
     Alina "Подумай, какая из сил тебе нравится больше, с какой ты лучше управляешься."
-    show Diana
-    show Yana
     menu:
         "Выбрать Яну":
             MainHero "Я буду помогать Яне."
-            Yana "Супер! Будем вместе отвлекать на себя часть противников!"
+            Yana Smiling "Супер! Будем вместе отвлекать на себя часть противников!"
             $ PointYana += 1
-            $ CastleChoice = "Yana"
+            $ CastleChoice = "Yana Idle"
         "Выбрать Алину":
             MainHero "Я буду помогать Алине."
-            Alina "Хорошо, тогда вместе будем обезвреживать тех, кого ни Яне, ни Диане не удастся отвлечь."
+            Alina Blush2 "Хорошо, тогда вместе будем обезвреживать тех, кого ни Яне, ни Диане не удастся отвлечь."
             $ PointAlina += 1
-            $ CastleChoice = "Alina"
+            $ CastleChoice = "Alina Idle"
         "Выбрать Диану":
             MainHero "Я буду помогать Диане."
-            Diana "Ура! Тогда вместе их заблокируем!"
+            Diana Smiling "Ура! Тогда вместе их заблокируем!"
             $ PointDiana += 1
-            $ CastleChoice = "Diana"
+            $ CastleChoice = "Diana Idle"
         "Выбрать Ульяну":
             MainHero "Я буду помогать Ульяне."
-            Ulyana "Ладно, вроде твой голем сможет продержаться некоторое время."
+            Ulyana Proud "Ладно, вроде твой голем сможет продержаться некоторое время."
             Ulyana "Время уже позднее, давайте спать ложиться, завтра тяжёлый день."
             $ PointUlyana += 1
-            $ CastleChoice = "Ulyana"
+            $ CastleChoice = "Ulyana Idle"
+    scene black with Fade(1, 0.5, 1)
     hide Ulyana
     hide Diana
     hide Yana
     hide Alina
-    scene black
     "Как я до такого докатился?.."
 
-    scene image("BG/Castle.png")
-    show Ulyana
+    
+    scene image("BG/Castle.png") with dissolve
+    show Ulyana Happy with dissolve
     Ulyana "Мы пришли, пора расходиться."
-    show Diana
+    show Ulyana at midleft
+    show Diana Idle at midright
     Diana "Удачи, девочки! Берегите себя!"
-    scene black with Pause(2.0)
-    if CastleChoice == "Yana":
+    scene black with fade
+    if CastleChoice == "Yana Idle":
         call CastleWithYana
-    elif CastleChoice == "Alina":
+    elif CastleChoice == "Alina Idle":
         call CastleWithAlina
-    elif CastleChoice == "Diana":
+    elif CastleChoice == "Diana Idle":
         call CastleWithDiana
     else:
         call CastleWithUlyana
-    return
-            
+
+    scene image("BG/HeroRoom.png")
+    MainHero "ААААААААААА"
+    MainHero "Что? Я спал?"
+    scene black
+    "Что это было вообще?.."
+    
+    scene image("BG/ClassRoom.png")
+    show Teacher Angry
+    Teacher "Ну? Ты решил куда будешь поступать?"
+    MainHero "Да, я буду поступать в РТФ."
+    Teacher Disappointed "Наконец-то! Хороший план, осталось немного поработать."
+    scene black
+    show text "{size=+20}некоторое время спустя" with ComposeTransition(Pause(2), after=dissolve)
+    if FinalChoice == "Help":
+        jump ThirdEnding
+    else:
+        jump SecondEnding
+
 
 label TurnLeft:
     scene image("BG/Cave-corridor2.png")
@@ -659,21 +675,23 @@ label TurnLeft:
     ## Ожидает продолжения    
 
 label CastleWithYana:
-    scene image("BG/InstideTheCastle.png") with fade
-    show Yana
+    scene image("BG/InsideTheCastle.png") with fade
+    show Yana Idle
     Yana "Тебе просто надо привлечь их внимание и сделать так, чтобы они побежали за тобой. Главное не дай им себя догнать!"
     MainHero "Я больше о тебе переживаю... За дело."
-    Yana "Постараемся!"
+    Yana Smiling "Постараемся!"
     ## Противники на фоне или как персонажи
     "Так, проще всего закричать, чтобы они обратили на меня внимание. Так и поступлю."
-    Yana "Эй! Дурачьё пластилиновое! Дуйте сюда, только не все сразу"
+    Yana Determined "Эй! Дурачьё пластилиновое! Дуйте сюда, только не все сразу"
     MainHero "Про меня не забудьте!"
     hide Yana
 
     scene image("BG/InsideTheCastle2.png")
     "Если честно, мне уже надоело от них бегать...."
     Yana "Помогите!"
+    "Видимо не все монстры заинтересовались мной…"
     MainHero "Яна?! Ты где?!"
+    
     show Yana
     "Вот чёрт, что делать-то?"
     menu:
@@ -686,17 +704,155 @@ label CastleWithYana:
             hide Yana
             "Правда в том, что я не знаю что делать..."
             scene black
-            # ОЖИДАЕТ ПРОДОЛЖЕНИЕ
+            $ FinalChoice = "Help"
+            return
         "Убежать":
             "Вот чёрт, надо бежать!"
             scene image("BG/InsideTheCastle3.png")
             "У меня чувство, что я когда уже был в такой ситуации..."
             scene black
-    return
+            $ FinalChoice = "RunAway"
+            return
 
 
 label CastleWithDiana:
+    scene image("BG/InsideTheCastle.png")
+    Diana "Ну что? Время творить?"
+    MainHero "Давай просто начнём."
+    Diana "Надеюсь они в одной куче, чтобы проще было их закрыть."
+    scene image("BG/LuxCorridorDiana.png")
+    Diana "Повезло, вроде они все вместе! Будет просто!"
+    MainHero "Начинай, я подстрахую."    
+    Diana "Ой, да не ворчи. Уже почти всё готово."
+    "Как легко она это делает…"
+    show Enemy
+    MainHero "Диана!"
+    menu:
+        "Помочь Диане":
+            MainHero "Алина, бежим!"
+            MainHero "Я отвлеку их на себя, а ты уходи!"
+            Diana "Стой, нет! Что ты будешь делать если они тебя догонят?"
+            MainHero "Я знаю что делать, у меня есть план."
+            Diana "Хорошо, верю в тебя!"
+            hide Diana
+            "Правда в том, что я не знаю что делать…"
+            scene black
+            $ FinalChoice = "Help"
+            return
+        "Сбежать":
+            "Надо бежать!"
+            scene image("BG/InsideTheCastle3.png")
+            "У меня чувство, что я когда уже был в такой ситуации…"
+            scene black
+            $ FinalChoice = "RunAway"
+            return
+
     
 label CastleWithAlina:
+    scene image("BG/InsideTheCastle.png")
+    show Alina
+    Alina "Так-с, главное не шуми, мы должны оставаться незаметными."
+    MainHero "Знаю я."
+    Alina "Надо найти безопасное место, в котором мы будем видеть их, а они не будут видеть нас."
+    MainHero "Как насчёт пойти вот туда?"
+    Alina "Супер."
+    hide Alina
+
+    scene image("BG/LuxCorridorAlina.png")
+    show Alina 
+    Alina "Я приступаю. Ты контролируй ситуацию."
+    MainHero "Принято."
+    "Какая она сосредоточенная… Не перестаю ими восхищаться…"
+    Alina "Так, первый есть, ещё примерно 25 осталось."
+    show Enemy
+    MainHero "Алина!"
+    menu:
+        "Помочь Алине":
+            MainHero "Алина, бежим!"
+            MainHero "Я отвлеку их на себя, а ты уходи!"
+            Alina "Стой, нет! Что ты будешь делать если они тебя догонят?"
+            MainHero "Я знаю что делать, у меня есть план."
+            Alina "Хорошо, верю в тебя!"
+            hide Alina
+            "Правда в том, что я не знаю что делать…"
+            scene black
+            $ FinalChoice = "Help"
+            return
+        "Сбежать":
+            "Надо бежать!"
+            scene image("BG/InsideTheCastle3.png")
+            "У меня чувство, что я когда уже был в такой ситуации…"
+            scene black
+            $ FinalChoice = "RunAway"
+            return
+ 
+        
 
 label CastleWithUlyana:
+    scene image("BG/InsideTheCastle.png")
+    show Ulyana
+    Ulyana "Главное не мешайся под ногами. Я сделаю всё сама."
+    MainHero "Постараюсь."
+    hide Ulyana
+
+    scene image("BG/LuxCorridorUlyana.png")
+    show Ulyana 
+    Ulyana "Маск всё сделает сам, но мне надо контролировать его, так что прикрой спину."
+    MainHero "Окей."
+    show Mask
+    Ulyana "Маск, давай!"
+    show Enemy
+    "Опять она всё делает за меня… А она справится?"
+    hide Enemy
+    hide Mask
+    hide Ulyana
+    scene black
+    "Хочется принести пользу…"
+    scene image("BG/LuxCorridorUlyana.png")
+    show Ulyana
+    Ulyana "Их слишком много! Надо уходить!"
+    menu:
+        "Помочь Ульяне":
+           MainHero "Я отвлеку их на себя, а ты уходи!"
+           Ulyana "Стой, нет! Что ты будешь делать?"
+           MainHero "У меня есть план."
+           Ulyana "Хорошо, верю в тебя!"
+           hide Ulyana
+           hide Mask
+           scene black
+           "Правда в том, что я не знаю что делать…"
+           $ FinalChoice = "Help"
+           return
+        "Сбежать":
+            "Надо бежать!"
+            scene image("BG/InsideTheCastle3.png")
+            "У меня чувство, что я когда уже был в такой ситуации…"
+            scene black
+            $ FinalChoice = "RunAway"
+            return
+
+label SecondEnding:
+    scene image("BG/Polytech.png")
+    "Вот так значит… В шарагу после одиннадцати классов… Да я герой…"
+    "В целом я не удивлён… Мне не особо есть разница где чалиться следующие несколько лет…"
+    show expression CastleChoice
+    "А ОНА ЧТО ТУТ ДЕЛАЕТ?!"
+    Girl "Прости, а ты не знаешь как добраться до РТФ? У меня топографический кретинизм. Хе-хе"
+    "ЧТО ДЕЛАТЬ? ЧТО ДЕЛАТЬ? ЧТО ДЕЛАТЬ?"
+    menu:
+        "Убежать":
+            hide CastleChoice
+            "Каким был, таким и остался.. Какой я жалкий"
+
+label ThirdEnding:
+    scene image("BG/RTF.png")
+    "Воу… Я правда поступил?"
+    "Когда я успел так измениться?..."
+    show expression CastleChoice
+    Girl "Привет! Ты случайно не с *название направления*?"
+    "Что? Это она? Что она тут делает?"
+    MainHero "Да..."
+    Girl "Супер! Наставники попросили всех собраться, пойдём!"
+    MainHero "Слушай, а мы раньше нигде не встречались?..."
+    Girl "Хмм… Вроде нет, а что?"
+    MainHero "Просто лицо показалось знакомым…"
