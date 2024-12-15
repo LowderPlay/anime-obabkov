@@ -45,15 +45,15 @@ screen testing_screen:
                 align (0.5, 0.5)
                 text "Действия: " style "title_text"
                 spacing 10
-                for i in allowed_chars:
+                for char, sound in zip(allowed_chars, sounds):
                     fixed:
                         xysize (50, 50)
-                        textbutton i:
+                        textbutton char:
                             style "button"
                             idle_background "UI/button.png"
                             hover_background "UI/button_active.png"
                             if len(current_sequence) < max_sequence_length:
-                                action IncrementVariable("current_sequence", amount=i)
+                                action [IncrementVariable("current_sequence", amount=char), Play("sound", f"audio/games/yana/{sound}")]
 
             if error != "":
                 hbox:
@@ -63,16 +63,17 @@ screen testing_screen:
         hbox:
             ypos 430
             spacing 10
-            textbutton "очистить" text_style "button_style":
-                action [SetVariable("current_sequence", ""), SetVariable("error", "")]
             textbutton "проверить" text_style "button_style":
                 action Function(check_sequence)
+            textbutton "очистить" text_style "button_style":
+                action [SetVariable("current_sequence", ""), SetVariable("error", "")]
                 # button:
                     # child Text("123")
 
 default max_sequence_length = 10
 default current_sequence = ""
 default allowed_chars = "🏹🔪🤜🦶🍔"
+default sounds = ["shot.mp3", "cut.mp3", "hit.mp3", "kick.mp3", "eat.mp3"]
 default error = ""
 
 python early:

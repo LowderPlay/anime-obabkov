@@ -196,6 +196,7 @@ label start:
     "Показалось может..."
     show Enemy Multiple at midright_center, scale(0.7)
     play sound "monsters.ogg"
+    play music "chase.ogg"
     show Yana Scared
     Enemy "ААААРРРРРХ!"
     Yana  "БЕЖИМ!"
@@ -238,8 +239,6 @@ label start:
     Yana Determined "Бежим"
     hide Yana
 
-    stop music
-
     scene image("BG/FlowerGlade.png")
     show Yana Exhausted at left
     show Enemy Multiple at center, scale(0.7)
@@ -252,9 +251,8 @@ label start:
     show Alina InGlasses
     show Enemy
     Alina "Ну что, поиграем?"
-    play music ["<silence 2>", "hacking.ogg"] 
-    #scene image("BG/FlowerGlade.png") with testfade
-    show screen terminal_screen with Fade(1.0, 2.5, .001)
+
+    stop music
     hide Enemy
     hide Alina 
     hide Yana 
@@ -298,13 +296,11 @@ label start:
     hide Alina 
     hide Yana
     ## Мини-игра Дианы
-    "ТУТ БУДЕТ МИНИ-ИГРА ФРОНТЕНЩИЦЫ, ПОКА ЧТО ТАМ СТОИТ ИГРА БЕКЕНЩИЦЫ, В КОТОРОЙ НУЖНО ЗАСТАВИТЬ РОБОТА ПРИНЕСТИ ВОДЫ"
     $ renpy.suspend_rollback(True)
     $ config.rollback_enabled = False
-    show screen backend_screen
-    Alina "Эй, Маск! Иди к колодцу и набери воды."
-    call screen backend_screen
-    pause 1.0
+    show screen frontend_screen
+    Diana "Так-так... Значит, дом построить?{w} Нужно расставить все элементы по местам."
+    call screen frontend_screen
     $ config.rollback_enabled = True
     $ renpy.suspend_rollback(False)
     $ renpy.force_autosave()
@@ -382,8 +378,6 @@ label start:
 
     scene black
     MainHero "... {w} Куда я попал... "
-
-    return
     
     scene image("BG/StarrySkyInTheFores.png")
     "Какие же эти девочки шумные! Наконец-то тишина..."
@@ -447,7 +441,16 @@ label start:
     Ulyana "Хорошо. Маск!"
 
     # Мини-игра Ульяны
-    "ТУТ МИНИ-ИГРА"
+    $ renpy.suspend_rollback(True)
+    $ config.rollback_enabled = False
+    show screen backend_screen
+    Ulyana "Эй, Маск! Иди к колодцу и набери воды."
+    "Напиши алгоритм для Маска, чтобы он подошел к колодцу и взял из него воду."
+    call screen backend_screen
+    pause 1.0
+    $ config.rollback_enabled = True
+    $ renpy.suspend_rollback(False)
+    $ renpy.force_autosave()
 
     Ulyana "Ладно, время уже позднее, пойдёмте спать, девочки. А с тобой мы завтра поговорим"
     Diana Idle"Вы идите, а я ещё посижу"
