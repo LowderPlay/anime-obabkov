@@ -27,10 +27,11 @@ transform midright_center:
 
 #Спрайты Алины
 image Alina Idle = At("Characters/Alina/idle.png", sprite_highlight('Alina'), smaller)
-image Alina InGlasses = At("Characters/Alina/in glasses.png", sprite_highlight('Alina'), smaller)
+image Alina BeforeFight = At("Characters/Alina/before_fight.png", sprite_highlight('Alina'), smaller)
+image Alina Fight = At("Characters/Alina/fight.png", sprite_highlight('Alina'), smaller)
 image Alina Angry = At("Characters/Alina/angry.png", sprite_highlight('Alina'), smaller)
-image Alina Blush1 = At("Characters/Alina/blushing 1.png", sprite_highlight('Alina'), smaller)
-image Alina Blush2 = At("Characters/Alina/blushing 2.png", sprite_highlight('Alina'), smaller)
+image Alina Shy = At("Characters/Alina/shy.png", sprite_highlight('Alina'), smaller)
+image Alina Smiling = At("Characters/Alina/smiling.png", sprite_highlight('Alina'), smaller)
 image Alina Confused = At("Characters/Alina/confused.png", sprite_highlight('Alina'), smaller)
 
 #Спрайты Учителя
