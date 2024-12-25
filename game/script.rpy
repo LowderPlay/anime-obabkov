@@ -1,5 +1,5 @@
 ﻿define Alina = Character("Алина", color="#82f364", image="Alina", callback=name_callback, cb_name='Alina')
-define Ulyana = Character("Ульяна", color="#532d49", image="Ulyana", callback=name_callback, cb_name='Ulyana')
+define Ulyana = Character("Ульяна", color="#4ee4ff", image="Ulyana", callback=name_callback, cb_name='Ulyana')
 define Diana = Character("Диана", color="#fc4db6", image="Diana", callback=name_callback, cb_name='Diana')
 define Yana = Character("Яна", color="#e48942", image="Yana", callback=name_callback, cb_name='Yana')
 define Teacher = Character("Учитель", color="#dad4db", image="Teacher", callback=name_callback, cb_name='Teacher')
@@ -31,7 +31,7 @@ image Alina BeforeFight = At("Characters/Alina/before_fight.png", sprite_highlig
 image Alina Fight = At("Characters/Alina/fight.png", sprite_highlight('Alina'), smaller)
 image Alina Angry = At("Characters/Alina/angry.png", sprite_highlight('Alina'), smaller)
 image Alina Shy = At("Characters/Alina/shy.png", sprite_highlight('Alina'), smaller)
-image Alina Smiling = At("Characters/Alina/smiling.png", sprite_highlight('Alina'), smaller)
+image Alina Smiling = At("Characters/Alina/smile.png", sprite_highlight('Alina'), smaller)
 image Alina Confused = At("Characters/Alina/confused.png", sprite_highlight('Alina'), smaller)
 
 #Спрайты Учителя
@@ -41,8 +41,12 @@ image Teacher Angry = At("Characters/Teacher/angry.png", sprite_highlight('Teach
 #Спрайты Дианы
 image Diana Idle = At("Characters/Diana/idle.png", sprite_highlight('Diana'), smaller)
 image Diana Laughing = At("Characters/Diana/laughing.png", sprite_highlight('Diana'), smaller)
+image Diana Angry = At("Characters/Diana/angry.png", sprite_highlight('Diana'), smaller)
 image Diana Smiling = At("Characters/Diana/smiling.png", sprite_highlight('Diana'), smaller)
 image Diana WinnerPose = At("Characters/Diana/winner_pose.png", sprite_highlight('Diana'), smaller)
+image Diana Shrug = At("Characters/Diana/shrug.png", sprite_highlight('Diana'), smaller)
+image Diana Sad = At("Characters/Diana/Sad.png", sprite_highlight('Diana'), smaller)
+
 
 #Спрайты Ульяны
 image Ulyana Idle = At("Characters/Ulyana/idle.png", sprite_highlight('Ulyana'), smaller)
@@ -166,7 +170,7 @@ label start:
     call screen testing_screen
     $ config.rollback_enabled = True
     $ renpy.suspend_rollback(False)
-    $ renpy.force_autosave()
+    $ renpy.save("autosave_slot")
 
     scene image("BG/Cave.png")
     show Yana Smiling
@@ -191,7 +195,7 @@ label start:
     Yana Laughing "Ха-ха-ха. Можно и так сказать. Но только своим. Я не могу влиять на мир."
     MainHero "А что значит «мы»? Ты не в первый раз так говоришь."
     Yana Idle "Скоро узнаешь, но сначала нам нужно выбраться отсюда."
-    hide Yana
+    
 
     scene image("BG/BigCave.png") with fade
     show Yana Confused at midleft
@@ -206,7 +210,7 @@ label start:
     Yana  "БЕЖИМ!"
     MainHero "ПОЧЕМУ ИХ ТАК МНОГО?"
     Yana  "ОНИ ЖИВУТ СТАЯМИ, НО НЕ НАСТОЛЬКО БОЛЬШИМИ!!!"
-    hide Yana Enemy
+    
 
     scene image ("BG/Cave-Corridor2.png")
     MainHero "Это шутка какая-то! Я очнулся в незнакомом мире и на меня тут же нападает стая каких-то монстров!"
@@ -241,32 +245,29 @@ label start:
         "Направо":
             $ PointYana += 1
     Yana Determined "Бежим"
-    hide Yana
+    
 
-    scene image("BG/FlowerGlade.png")
+    scene image("BG/FlowerGlade.png") with Fade(0.5, 1, 0.5)
+    stop music fadeout 1
     show Yana Exhausted at left
     show Enemy Multiple at center, scale(0.7)
     Yana "Алина! Спасай! Их там слишком много!"
-    show Alina Idle at right
+    show Alina Shy at right
     Alina "Ты опять в передрягу попала?"
     Yana "Да! Спасай, Линочка!"
-    Alina "А это кто с тобой?"
+    Alina Confused "А это кто с тобой?"
     Yana "Потом расскажу!"
-    show Alina InGlasses
+    show Alina Fight
     show Enemy
-    
     Alina "Ну что, поиграем?"
-
-    stop music
-    hide Enemy
-    hide Alina 
-    hide Yana 
+    
+    play music [ "<silence 0.5>", "hacking.ogg" ]
+    scene black with Fade(0.5, 1.2, 0.1)
     scene image("BG/FlowerGlade.png"):
         blur 10
     ## Мини-игра Алины
     $ renpy.suspend_rollback(True)
     $ config.rollback_enabled = False
-    play music "hacking.ogg"
     call screen terminal_screen
     $ config.rollback_enabled = True
     $ renpy.suspend_rollback(False)
@@ -274,25 +275,25 @@ label start:
     stop music
 
     scene image("BG/FlowerGlade.png")
-    show Alina Idle
+    show Alina BeforeFight
     MainHero "Что ты сделала? Почему они встали как вкопанные?"
-    Alina InGlasses "Я отключила им мозг. Теперь они будут вечно тут стоять."
+    Alina "Я отключила им мозг. Теперь они будут вечно тут стоять."
     MainHero "Но как?.."
-    Alina Confused "Сама толком не понимаю. Как я попала сюда, мои очки какими-то новыми свойствами обзавелись."
+    Alina Shy "Сама толком не понимаю. Как я попала сюда, мои очки какими-то новыми свойствами обзавелись."
     "Да куда я, блин, попал?"
-    show Alina Idle at midleft
+    show Alina Shy at midleft
     show Yana Idle at midright
     Yana "Ребят, пошли к Диане. Она, наверное, уже почти закончила."
-    Alina Blush1"Да. Неплохо было бы вот этого ей показать. Идём?"
+    Alina Idle "Да. Неплохо было бы вот этого ей показать. Идём?"
     MainHero "Мне деваться некуда. Куда вы - туда и я."
-    hide Yana 
-    hide Alina
+    
 
     scene image("BG/EmptyField.png") with fade
     show Yana Confused at midright
-    show Alina Confused at midleft
+    show Alina Shy at midleft
     Alina "То есть, ты почти до конца дошла, а там вот этот сидит?"
-    Yana Idle "Ну да. Я так удивилась увидеть там человека! Алина, ну чего ты злая такая? Не похож он на злодея. Зато нам теперь не так скучно будет!"
+    Yana Idle "Ну да. Я так удивилась увидеть там человека!"
+    Yana Confused "Алина, ну чего ты злая такая? Не похож он на злодея. Зато нам теперь не так скучно будет!"
     Yana Thinking "Ой, смотрите! Диана!"
     show Diana Idle 
     show Yana Idle at right
@@ -301,9 +302,7 @@ label start:
     Alina Angry "Что? Ты ещё не начала?! Диана. Тебе было поручено важное дело. Почему ты прохлаждалась пока остальные работали?! Уже почти солнце село!"
     Diana Laughing "Лина, ну не сердись! Ты же знаешь, что я быстро закончу. Можете посмотреть, а пока расскажите, кто это с вами."
     
-    hide Diana 
-    hide Alina 
-    hide Yana
+
     ## Мини-игра Дианы
     $ renpy.suspend_rollback(True)
     $ config.rollback_enabled = False
@@ -319,15 +318,16 @@ label start:
 
     scene image ("BG/GladeAtHome.png")
     show Diana Idle
-    show Alina Confused at right
+    show Alina Idle at right
     show Yana Idle at left
     Diana Smiling "Вуаля! Линочка, я же говорила, что быстро закончу. Сколько это у меня заняло? Минут пять?"
-    Alina "Ладно. Живи пока. Сделай ещё костёр, на огонь посмотреть хочется."
+    Alina Angry "Ладно. Живи пока. Сделай ещё костёр, на огонь посмотреть хочется."
     Yana Smiling "Да-да! И мне!"
     Diana Laughing "Учитесь пока я жива"
 
 
     scene image("BG/BonfireField.png") with Fade(0.5, 1, 1)
+    play music 'bonfire.mp3'
     show Diana Idle
     show Alina Idle at right
     show Yana Laughing at left
@@ -347,7 +347,7 @@ label start:
                 $ questions.append(1)
                 # $ renpy.block_rollback()
             "А как давно вы тут?" if 2 not in questions:
-                show Alina Idle
+                show Alina Smiling
                 Alina "Кто — как. Я — три недели, Диана — 12 дней, Яна — три месяцa"
                 hide Alina 
                 $ questions.append(2)
@@ -380,6 +380,7 @@ label start:
     "Так. Яна перебирает все варианты, ищет слабое место и использует его, чтобы иметь преимущество, ещё и раньше всех сюда попала"
     "Алина ищет лазейку и влияет на разум монстров, а Диана из ничего создаёт окружение..."
     "Они же... Блин, ну не может такого быть... {w} Они же буквально тестировщик, фронтенд разработчик и безопасник!"
+    stop music fadeout 1
 
     scene black with fade
     MainHero "... {w} Куда я попал... "
@@ -389,6 +390,7 @@ label start:
     "Так ничего я и не понял. Ну и ладно, в целом. Тут не так плохо как могло бы быть. Если не лазить по всяким пещерам, то вообще классно"
 
     scene image("BG/NightForest.png") with Fade(1.5, 1, 0.5)
+    play music 'nightforest.mp3'
     Unknown "Эй! Ты кто?"
     MainHero "Что? Кто здесь?"
     show Ulyana Excited
@@ -407,32 +409,34 @@ label start:
     menu:
         "Давить на жалость":
             MainHero "Отпусти меня. Пожалуйста, отпусти. Я ничего плохого тебе не сделал и обещаю, что не сделаю!"
+            show Ulyana Pout
             Unknown "Конечно не сделаешь. Мы разберёмся с тобой, и больше ты не будешь представлять угрозы"
         "Попытаться вырваться":
-            "Мёртвой хваткой держит. Видимо без вариантов, придется смириться"    
+            "Мёртвой хваткой держит. Видимо без вариантов, придется смириться" 
+            show Ulyana Pout   
             Unknown "Не пытайся. Даже если ты вырвешься, он снова схватит тебя. Он быстрее тебя, прочнее тебя и, скорее всего...{w} умнее."
             MainHero "Отпусти меня. Пожалуйста, отпусти. Я ничего плохого тебе не сделал и обещаю, что не сделаю!"
             MainHero "Как этот комок глины может быть умней живого человека?"
-            show Ulyana Idle
+            show Ulyana Proud
             Unknown "Так не человека ведь, а тебя"
             $ PointUlyana += 1
-
+    stop music fadeout 1
     
     scene image("BG/NightVersionHomeAndBonfire.png") with Fade(1.0, 0.1, 1.0)
     show Diana Idle at right, four
-    show Ulyana Idle at midright, four
+    show Ulyana Proud at midright, four
     show Alina Idle at midleft, four
     show Yana Idle at left, four
-    Unknown "Девочки, смотрите кого я поймала!"
+    Unknown  "Девочки, смотрите кого я поймала!"
     Diana Angry "Ульяна, ты что делаешь! Это наш друг!"
     Ulyana Pout "Что?! Серьёзно?"
-    Alina Confused "Как не прискорбно, но да"
+    Alina Shy "Как не прискорбно, но да"
     MainHero "Вот видишь! Я же говорил, что я не сделаю ничего плохого"
     Ulyana "Ладно. Маск, отпусти его."
     Diana Pout"Вот почему ты всегда себя так ведёшь?!"
-    Ulyana "В этот раз что не так?"
+    Ulyana Angry"В этот раз что не так?"
     Diana  Angry "Зачем надо было хватать человека?! Почему нельзя мирно поговорить?!"
-    Ulyana "Ух-ты! То есть, я должна жертвовать безопасностью, чтобы один раз из ста не хватить не того?!"
+    Ulyana Excited "Ух-ты! То есть, я должна жертвовать безопасностью, чтобы один раз из ста не хватить не того?!"
     Diana Idle "Да!"
     menu:
         "Принять сторону Дианы":
@@ -446,7 +450,7 @@ label start:
     Ulyana Angry"Ты кого злодейкой назвал?!"
     Yana Laughing "Ха-ха. Ну да, наша Ульяна в гневе больше на злодейку похожа. Зато когда успокоится такой доброй становится!"
     show Musk
-    Alina Blush1 "Ладно, пошутили и хватит. Ульяна, ты вовремя. Отправь Маска за водой, у нас вся закончилась"
+    Alina Idle "Ладно, пошутили и хватит. Ульяна, ты вовремя. Отправь Маска за водой, у нас вся закончилась"
     Ulyana Proud"Хорошо. Маск!"
 
     # Мини-игра Ульяны
@@ -461,12 +465,14 @@ label start:
     pause 1.0
     $ config.rollback_enabled = True
     $ renpy.suspend_rollback(False)
-    $ renpy.force_autosave()
+    $ renpy.save("AfterMaskGame")
 
     scene image("BG/NightVersionHomeAndBonfire.png")
-    Ulyana Idle "Ладно, время уже позднее, пойдёмте спать, девочки."
+    show Ulyana Idle at right
+    show Diana Idle at left
+    Ulyana "Ладно, время уже позднее, пойдёмте спать, девочки."
     Ulyana Angry "А с тобой мы завтра поговорим"
-    Diana Idle"Вы идите, а я ещё посижу"
+    Diana "Вы идите, а я ещё посижу"
 
     scene image("BG/Bonfire.png") with Fade(1.5, 1, 1)
     show Diana Idle
@@ -485,28 +491,28 @@ label start:
             MainHero "Мы скоро узнаем и обязательно вернёмся к своей привычной жизни. Поверь мне"
             Diana Sad "Обещаешь?"
             MainHero "Клянусь"
-            Diana Proud"Спасибо, что поддержал. Клятву придётся сдержать"
+            Diana Shrug "Спасибо, что поддержал. Клятву придётся сдержать"
             MainHero "Я постараюсь"
-            Diana Happy "Ладно, я тоже спать пойду"
+            Diana Smiling "Ладно, я тоже спать пойду"
             scene image("BG/BlackScreen.png")
             "Они все такие разные. Такие яркие. Интересно, и как же я собрался выполнять обещание? Надо будет что-то придумать"
     hide Diana
     
     scene image("BG/Bonfire.png") with fade
     show Alina Idle
-    Alina Confused "Ты всё сидишь?"
+    Alina "Ты всё сидишь?"
     MainHero "Ну да. Пытаюсь переварить то, что за день произошло"
-    Alina Idle "Вставай, поможешь мне"
+    Alina "Вставай, поможешь мне"
     MainHero "Помогу с чем?"
-    Alina "Увидишь"
+    Alina Fight "Увидишь"
     hide Alina
 
     scene image("BG/NightGladeWithHouseAndFire.png") with fade
     show Alina Idle at midleft
     show Enemy Multiple at midright, scale(0.7)
-    Alina "Ночью они вообще везде гуляют, иногда и к нам забредают"
+    Alina Idle "Ночью они вообще везде гуляют, иногда и к нам забредают"
     MainHero "Монстры что-ли?"
-    Alina Blush1 "Ага. Если увидим, то отвлечёшь их на себя, пока я мозги им выключу"
+    Alina Idle "Ага. Если увидим, то отвлечёшь их на себя, пока я мозги им выключу"
     MainHero "Ничего себе заявочка, а моего согласия не надо спросить?"
     Alina Idle "Я уже один раз тебя спасла, так что нет"
     menu:
@@ -538,9 +544,9 @@ label start:
     hide Yana
 
     scene image("BG/ForestEdge.png") with fade
-    show Alina InGlasses at midleft
+    show Alina Fight at midleft
     Alina "Девочки, помогите!"
-    show Yana at midright
+    show Yana Idle at midright
     Yana "Уже идём!"
     show Alina at left
     show Yana Determined at right
@@ -549,33 +555,33 @@ label start:
     "Почему у меня сил никаких нет? Почему я просто стою и смотрю как девочки с ним дерутся?"
     "Если я прав, и их силы и правда просто навыки айтишников, то... Надо что-то менять!"
     MainHero "Девочки, пусть на меня бежит!"
-    hide Alina
     hide Yana
     hide Ulyana
+    hide Alina
 
     show image("BG/MorningField.png") with Fade(1, 1.5, 1)
-    show Alina at left, four
+    show Alina Idle at left, four
+    show Yana Idle at midleft, four
+    show Ulyana Idle at midright, four
+    show Diana Idle at right, four
     Alina "А ты молодец. Не ожидала от тебя."
-    show Yana at midleft, four
     Yana Smiling "Да! Ты таким крутым был!"
-    show Ulyana at midright, four
     Ulyana Angry"Если бы Алина не ушла одна, ему не пришлось бы быть крутым."
-    Alina "Не ворчи, я за информацией ходила."
-    show Diana at right, four
+    Alina Confused "Не ворчи, я за информацией ходила."
     Diana WinnerPose "Ух-ты! И что ты узнала?"    
     Alina "Во-первых, мы все обладаем силами друг друга. Просто чтобы мне использовать силы Дианы например, надо приложить гораздо больше усилий и результат будет хуже."
     "А я никакой не обладаю..."
     Alina "Во-вторых, если сил вообще нет, то их можно развить. Можно хоть две сразу, главное равные усилия прилагать."
     Yana Thinking"Значит, он тоже сможет силой обладать?!"
-    Alina "В целом, да. Если лениться не будет."
+    Alina Smiling"В целом, да. Если лениться не будет."
     Diana Smiling "Ух-ты! Классно!"
     "Надо приложить наконец усилия. Я не могу оставаться беспомощным бездельником."
     Alina "В-третьих, скорее всего предводитель этих чудиков знает, как нам домой вернуться. "
     Ulyana Idle "А вот это важная информация."
     Yana "И что делать будем? Он же злыдень!"
-    Alina "Надо решать. Если честно, мне уже надоело тут тусоваться."
+    Alina Idle "Надо решать. Если честно, мне уже надоело тут тусоваться."
     MainHero "А ты откуда это узнала?"
-    Alina "Дошла до конца пещеры, в которой тебя Яна нашла. Там кто-то всё это на стене написал."
+    Alina Confused "Дошла до конца пещеры, в которой тебя Яна нашла. Там кто-то всё это на стене написал."
     "То есть, в этом мире самый надежный источник информации буквально надписи на стенах?"
     Ulyana Thinking"Лина, а ты не узнала где этот «злыдень» сидит?"
     Alina "Да, я знаю куда идти, но это не близко."
@@ -597,13 +603,12 @@ label start:
     hide Diana
 
     scene image("BG/ForestWithLake.png") with dissolve
-    "ока мы шли я немного овладел каждой из сил девочек. Конечно, не идеально, но они помогали мне разобраться.
+    "Пока мы шли я немного овладел каждой из сил девочек. Конечно, не идеально, но они помогали мне разобраться.
     Я стал не таким бесполезным. Все понимали, что разговаривать злыдень, скорее всего, не станет."
     "На этот случай Ульяна при помощи Алины разработала план действий. И, когда мы уже почти достигли цели, у нас состоялся последний разговор."
 
 
-
-    scene image("BG/Bonfire.png")
+    scene image("BG/Bonfire.png") with fade
     show Yana Idle at midleft, four
     show Ulyana Idle at midright, four
     show Diana Idle at left, four
@@ -618,7 +623,7 @@ label start:
             $ CastleChoice = "Yana Idle"
         "Выбрать Алину":
             MainHero "Я буду помогать Алине."
-            Alina Blush2 "Хорошо, тогда вместе будем обезвреживать тех, кого ни Яне, ни Диане не удастся отвлечь."
+            Alina Smiling "Хорошо, тогда вместе будем обезвреживать тех, кого ни Яне, ни Диане не удастся отвлечь."
             $ PointAlina += 1
             $ CastleChoice = "Alina Idle"
         "Выбрать Диану":
@@ -657,7 +662,7 @@ label start:
         call CastleWithUlyana
 
     scene image("BG/HeroRoom.png")
-    MainHero "ААААААААААА"
+    MainHero "{sc}ААААААААААА{/sc}"
     MainHero "Что? Я спал?"
     scene black
     "Что это было вообще?.."
@@ -712,7 +717,8 @@ label CastleWithYana:
     "Видимо не все монстры заинтересовались мной…"
     MainHero "Яна?! Ты где?!"
     
-    show Yana
+    show Yana Scared
+    show Enemy Single at left
     "Вот чёрт, что делать-то?"
     menu:
         "Помочь Яне":
@@ -737,10 +743,13 @@ label CastleWithYana:
 
 label CastleWithDiana:
     scene image("BG/InsideTheCastle.png")
+    show Diana Idle
     Diana "Ну что? Время творить?"
     MainHero "Давай просто начнём."
     Diana "Надеюсь они в одной куче, чтобы проще было их закрыть."
-    scene image("BG/LuxCorridorDiana.png")
+    
+    scene image("BG/InsideTheCastle2.png")
+    show Diana Idle
     Diana "Повезло, вроде они все вместе! Будет просто!"
     MainHero "Начинай, я подстрахую."    
     Diana "Ой, да не ворчи. Уже почти всё готово."
@@ -778,7 +787,7 @@ label CastleWithAlina:
     Alina "Супер."
     hide Alina
 
-    scene image("BG/LuxCorridorAlina.png")
+    scene image("BG/InsideTheCastle2.png")
     show Alina 
     Alina "Я приступаю. Ты контролируй ситуацию."
     MainHero "Принято."
@@ -815,7 +824,7 @@ label CastleWithUlyana:
     MainHero "Постараюсь."
     hide Ulyana
 
-    scene image("BG/LuxCorridorUlyana.png")
+    scene image("BG/InsideTheCastle2.png")
     show Ulyana 
     Ulyana "Маск всё сделает сам, но мне надо контролировать его, так что прикрой спину."
     MainHero "Окей."
@@ -828,7 +837,7 @@ label CastleWithUlyana:
     hide Ulyana
     scene black
     "Хочется принести пользу…"
-    scene image("BG/LuxCorridorUlyana.png")
+    scene image("InsideTheCastle2.png")
     show Ulyana
     Ulyana "Их слишком много! Надо уходить!"
     menu:

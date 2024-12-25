@@ -8,8 +8,17 @@ style text_style:
     color "#dfe8e2"
     size 25
 
+style text_stylee:
+    font "fonts/NineteenEightySeven.ttf"
+    color "#dfe8e2"
+    size 25
+
 style button_style is text_style:
-    idle_color "#616161"
+    idle_color "#ffffff"
+    hover_color "#e3350e"
+
+style button_stylee is text_stylee:
+    idle_color "#808080"
     hover_color "#ffffff"
 
 style button:
@@ -21,6 +30,11 @@ screen testing_screen:
         xysize (1000, 500)
         text "Последовательность действий:" style "title_text":
             align (0.5, 0.1)
+        
+        imagebutton:
+            align (0.05, 0.95)
+            idle "UI/skip.png"
+            action Return(True)
 
         vbox:
             spacing 50
@@ -61,16 +75,17 @@ screen testing_screen:
                     text error style "text_style"
 
         hbox:
-            ypos 430
+            ypos 420
+            xpos 500
             spacing 10
             textbutton "проверить" text_style "button_style":
                 action Function(check_sequence)
-            textbutton "очистить" text_style "button_style":
+            textbutton "очистить" text_style "button_stylee":
                 action [SetVariable("current_sequence", ""), SetVariable("error", "")]
                 # button:
                     # child Text("123")
 
-default max_sequence_length = 10
+default max_sequence_length = 7
 default current_sequence = ""
 default allowed_chars = "🏹🔪🤜🦶🍔"
 default sounds = ["shot.mp3", "cut.mp3", "hit.mp3", "kick.mp3", "eat.mp3"]

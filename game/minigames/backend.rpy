@@ -71,11 +71,17 @@ screen backend_screen:
         xysize (1920, 1080)
         background "#2b2b2be0"
         at hold
+
         frame:
             background "#222222"
             padding (0, 0)
             align (0.5, 0.5)
             xysize (1640, 768)
+
+            imagebutton:
+                align (0.43, 0.05)
+                idle "UI/skip.png"
+                action Return(True)
 
             vbox:
                 hbox:
@@ -127,7 +133,7 @@ screen backend_screen:
                     hbox:
                         for i in range(1, 10):
                             textbutton "[i]" action Function(value_selected, i) sensitive (current_step == 2)
-                        for a, b in [("направо", "right"), ("налево", "left")]:
+                        for a, b in [("налево", "left"), ("направо", "right")]:
                             textbutton "[a]" action Function(value_selected, b) sensitive (current_step == 3)         
             
             frame:

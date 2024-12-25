@@ -15,11 +15,10 @@ screen terminal_screen:
         align (0.5, 0.5)
         xysize (1640, 920)
 
-        if dead_count > 0 and prompt_visible:
-            imagebutton:
-                align (0.95, 0.05)
-                idle "UI/skip.png"
-                action Return(True)
+        imagebutton:
+            align (0.95, 0.05)
+            idle "UI/skip.png"
+            action Return(True)
 
         vbox:
             spacing 10
@@ -148,6 +147,7 @@ python early:
                 terminal_lines.append(message)
                 renpy.pause(1)
             renpy.pause(2)
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             terminal_lines.append(f"\nПароль найден: {monsters['14.8.5.8']}")
             show_hint()
         elif ip in ["2.4.84.4", "9.11.3.8"]:
@@ -183,6 +183,7 @@ python early:
         for message in messages:
             terminal_lines.append(message)
             renpy.pause(1)
+        renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
         terminal_lines.append(f"+---------------------+\n| user |   password   |\n+---------------------+\n| root | {monsters[ip].center(12)} |\n+---------------------+")
         show_hint()
         
@@ -192,6 +193,7 @@ python early:
                 terminal_lines.append(f"Проверка связки 'root:{password}'")
                 renpy.pause(0.5)
             terminal_lines.append("Найдено совпадение!")
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             terminal_lines.append(f"Пароль {monsters[ip]}")
             show_hint()
         elif ip == "9.11.3.8" and file_name != "passwords.txt":
@@ -204,8 +206,10 @@ python early:
     def connect(ip):
         if ip not in monsters:
             terminal_lines.append("ОШИБКА: Невозможно подключиться к IP-адресу")
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
         elif not network[ip][2]:
             terminal_lines.append("ОШИБКА: Хост недоступен")
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
         else:
             global console_state
             console_state = f"login {ip}"
@@ -237,14 +241,17 @@ python early:
         global terminal_lines, console_state, show_help_hint, show_scan_hint
         if console_state.startswith("login"):
             terminal_lines.append(f"Введите пароль: {command}")
+            renpy.sound.play('audio/games/alina/loading.ogg', relative_volume=0.5)
             renpy.invoke_in_new_context(renpy.pause, 2, _clear_layers=False)
             ip = console_state.split()[1]
             if monsters[ip] == command:
+                renpy.sound.play('audio/games/alina/success.ogg', relative_volume=0.5)
                 terminal_lines.clear()
                 terminal_lines.append("Добро пожаловать в EvilOS!\nFreeBSD 14.1-RELEASE-p5")
                 terminal_lines.append("Напишите 'help', чтобы получить список доступных команд")
                 console_state = f"monster {ip}"
             else:
+                renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
                 console_state = ""
                 terminal_lines.append("ОШИБКА: Неверный пароль")
             return

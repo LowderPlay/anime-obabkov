@@ -8,6 +8,11 @@ screen frontend_screen:
         align (0.5, 0.5)
         xysize (1640, 768)
 
+        imagebutton:
+            align (0.43, 0.05)
+            idle "UI/skip.png"
+            action Return(True)
+
         vbox:
             spacing 5
             for i in elements.values():
