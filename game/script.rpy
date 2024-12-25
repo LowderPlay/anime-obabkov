@@ -348,7 +348,7 @@ label start:
                 # $ renpy.block_rollback()
             "А как давно вы тут?" if 2 not in questions:
                 show Alina Smiling
-                Alina "Кто — как. Я — три недели, Диана — 12 дней, Яна — три месяцa"
+                Alina "Кто - как. Я - три недели, Диана - 12 дней, Яна - три месяцa"
                 hide Alina 
                 $ questions.append(2)
                 # $ renpy.block_rollback()
