@@ -285,7 +285,81 @@ style quick_button_text:
 ## Этот экран включает в себя главное и игровое меню, и обеспечивает навигацию к
 ## другим меню и к началу игры.
 
+define button_hovered = False
+
+transform slide_in:
+    xpos -1000
+    easein_quint 0.5 xpos 0
+    
+style outlined_text:
+    size 50
+    color  "#000000"
+    hover_color  "#aaa"
+    outlines [ (3, "#ffffff", 0, 0) ]
+    font "fonts/Born2bSportyFS.otf"
+
 screen navigation():
+    if not main_menu or renpy.current_screen().name != "main_menu":
+        use other_navigation()
+    else:
+        vbox:
+            xalign 0.5
+            yalign 0.7
+            frame:
+                xpos -60
+                xysize (441, 114)
+                background "#00000000"
+                imagebutton:
+                    action Start()
+                    idle "UI/menu/bg.png"
+                    hovered [SetVariable("button_hovered", True), Function(renpy.restart_interaction), Play("sound", "sword.mp3", relative_volume=0.3)]
+                    unhovered [SetVariable("button_hovered", False), Function(renpy.restart_interaction)]
+                if button_hovered:
+                    image "UI/menu/sword.png":
+                        at slide_in
+                    image "UI/menu/fg.png"
+
+            textbutton _("Загрузить") action ShowMenu("load"):
+                hovered Play("sound", "hover.ogg", relative_volume=0.3)
+                text_style "outlined_text"
+                xalign 0.5
+
+            textbutton _("Настройки") action ShowMenu("preferences"):
+                hovered Play("sound", "hover.ogg", relative_volume=0.3)
+                text_style "outlined_text"
+                xalign 0.5
+
+            if _in_replay:
+
+                textbutton _("Завершить повтор") action EndReplay(confirm=True):
+                    hovered Play("sound", "hover.ogg", relative_volume=0.3)
+                    text_style "outlined_text"
+                    xalign 0.5
+
+            textbutton _("Об игре") action ShowMenu("about"):
+                hovered Play("sound", "hover.ogg", relative_volume=0.3)
+                text_style "outlined_text"
+                xalign 0.5
+
+            if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
+
+                ## Помощь не необходима и не относится к мобильным устройствам.
+                textbutton _("Помощь") action ShowMenu("help"):
+                    hovered Play("sound", "hover.ogg", relative_volume=0.3)
+                    text_style "outlined_text"
+                    xalign 0.5
+
+            if renpy.variant("pc"):
+
+                ## Кнопка выхода блокирована в iOS и не нужна на Android и в веб-
+                ## версии.
+                textbutton _("Выход") action Quit(confirm=not main_menu):
+                    hovered Play("sound", "hover.ogg", relative_volume=0.3)
+                    text_style "outlined_text"
+                    xalign 0.5
+    
+
+screen other_navigation():
 
     vbox:
         style_prefix "navigation"
@@ -295,15 +369,9 @@ screen navigation():
 
         spacing gui.navigation_spacing
 
-        if main_menu:
+        textbutton _("История") action ShowMenu("history")
 
-            textbutton _("Начать") action Start()
-
-        else:
-
-            textbutton _("История") action ShowMenu("history")
-
-            textbutton _("Сохранить") action ShowMenu("save")
+        textbutton _("Сохранить") action ShowMenu("save")
 
         textbutton _("Загрузить") action ShowMenu("load")
 
@@ -357,8 +425,8 @@ screen main_menu():
     add gui.main_menu_background
 
     ## Эта пустая рамка затеняет главное меню.
-    frame:
-        style "main_menu_frame"
+    # frame:
+    #     style "main_menu_frame"
 
     ## Оператор use включает отображение другого экрана в данном. Актуальное
     ## содержание главного меню находится на экране навигации.

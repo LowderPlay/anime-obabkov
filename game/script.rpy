@@ -88,11 +88,12 @@ define CastleChoice = ""
 define FinalChoice = ""
 
 label start:
-    $ _dismiss_pause = False  # Запрещает пропускать переходы нажатие мыши
+    stop music fadeout 1.0
+    $ _dismiss_pause = False
     scene black with dissolve
 
     scene image("BG/ClassRoom.png")
-    play sound "bell.mp3" volume 0.3
+    play sound "bell.ogg" volume 0.3
     $ renpy.block_rollback()
     pause 3
 
@@ -172,7 +173,7 @@ label start:
     call screen testing_screen
     $ config.rollback_enabled = True
     $ renpy.suspend_rollback(False)
-    $ renpy.save("autosave_slot")
+    $ renpy.force_autosave(block=True)
 
     scene image("BG/Cave.png")
     show Yana Smiling
@@ -267,13 +268,15 @@ label start:
     scene black with Fade(0.5, 1.2, 0.1)
     scene image("BG/FlowerGlade.png"):
         blur 10
+    show Enemy Multiple at center, scale(0.8):
+        matrixcolor BrightnessMatrix(-0.2)
     ## Мини-игра Алины
     $ renpy.suspend_rollback(True)
     $ config.rollback_enabled = False
     call screen terminal_screen
     $ config.rollback_enabled = True
     $ renpy.suspend_rollback(False)
-    $ renpy.force_autosave()
+    $ renpy.force_autosave(block=True)
     stop music
 
     scene image("BG/FlowerGlade.png")
@@ -307,7 +310,7 @@ label start:
     
 
     ## Мини-игра Дианы
-    play music 'dianaGame.mp3'
+    play music 'dianaGame.ogg'
     $ renpy.suspend_rollback(True)
     $ config.rollback_enabled = False
     scene image("BG/EmptyField.png"):
@@ -317,7 +320,7 @@ label start:
     call screen frontend_screen
     $ config.rollback_enabled = True
     $ renpy.suspend_rollback(False)
-    $ renpy.force_autosave()
+    $ renpy.force_autosave(block=True)
     stop music
 
     scene image ("BG/GladeAtHome.png") with dissolve
@@ -332,7 +335,7 @@ label start:
     scene image ("BG/GladeAtHome.png") with dissolve
 
     scene image("BG/BonfireGlade.png") with dissolve
-    play music 'bonfire.mp3'
+    play music 'bonfire.ogg'
     pause 1.5
     show Diana Idle
     show Alina Idle at right
@@ -368,11 +371,13 @@ label start:
                 show Alina Idle at midright
                 show Yana Idle at midleft
                 Yana "Людей тут нет. Ну, вернее, кроме нас. Я видела очень много разных монстров, и, насколько я поняла, 
-                они воспринимают людей как аномалию, пытаются нас схватить. Если не оказать им сопротивления, они явно тебя утащат"
+                они воспринимают людей как аномалию, пытаются нас схватить"
+                Yana "Если не оказать им сопротивления, они явно тебя утащат"
                 MainHero "Утащат куда?"
                 Alina "К какому-то их предводителю. Вот про него мы и сами мало что знаем. Но, видимо, только он знает как нам домой вернуться"
                 MainHero "А вы знаете где он находится?"
-                Yana "Нет. Я сегодня в ту пещеру пошла, чтобы найти его. Думали, может он что-то типо лича или вампира, но, видимо, нет. Зато нашли тебя и тех монстриков. Хорошо, что я Алину с собой взяла"
+                Yana "Нет. Я сегодня в ту пещеру пошла, чтобы найти его. Думали, может он что-то типо лича или вампира, но, видимо, нет. Зато нашли тебя и тех монстриков"
+                Yana "Хорошо, что я Алину с собой взяла"
                 hide Yana 
                 hide Alina
                 $ questions.append(4)
@@ -397,7 +402,7 @@ label start:
     "Так ничего я и не понял. Ну и ладно, в целом. Тут не так плохо как могло бы быть. Если не лазить по всяким пещерам, то вообще классно"
 
     scene image("BG/NightForest.png") with Fade(1.5, 1, 0.5)
-    play music 'nightforest.mp3'
+    play music 'nightforest.ogg'
     Unknown "Эй! Ты кто?"
     MainHero "Что? Кто здесь?"
     show Ulyana Excited
@@ -408,7 +413,7 @@ label start:
     Unknown "Ясно, так ты не один. Маск, схвати его!"
     show Ulyana Angry zorder 1 at midright
     show Musk at scale(1.5) with dissolve:
-        matrixcolor BrightnessMatrix (-0.1)
+        matrixcolor BrightnessMatrix (-0.2)
     "Что? Она злодейка? Блин-блин-блин, я не хочу!"
     MainHero "Не надо!"
     show Ulyana Excited
@@ -465,7 +470,7 @@ label start:
     hide Musk with dissolve
 
     # Мини-игра Ульяны
-    play music ["<silence 0.5>", "muskGame.mp3" ]
+    play music ["<silence 0.5>", "muskGame.ogg" ]
     $ renpy.suspend_rollback(True)
     $ config.rollback_enabled = False
     scene image("BG/BonfireGlade.png") with fade:
@@ -477,7 +482,7 @@ label start:
     pause 1.0
     $ config.rollback_enabled = True
     $ renpy.suspend_rollback(False)
-    $ renpy.save("AfterMaskGame")
+    $ renpy.force_autosave(block=True)
     stop music fadeout 1
 
     scene image("BG/BonfireGlade.png")
@@ -525,7 +530,7 @@ label start:
     hide Alina
 
     scene image("BG/BonfireGlade.png") with fade
-    play music "nightforest.mp3" fadein 1
+    play music "nightforest.ogg" fadein 1
     show Alina Idle at midright
     Alina Idle "Ночью они вообще везде гуляют, иногда и к нам забредают"
     MainHero "Монстры что-ли?"
@@ -543,17 +548,17 @@ label start:
     stop music fadeout 1
 
     
-    scene image("BG/MorningField.png") with fade
+    scene image("BG/BonfireMorning.png") with fade
     "Блин, в итоге всю ночь провозились. Я чуть не помер, а Алина ушла куда-то, даже спасибо не сказала."
-    show Ulyana Idle
+    show Ulyana Idle at left
     Ulyana "О, а вот и ты. Девочки мне рассказали как они тебя нашли."
     MainHero "Всё? Бить не будешь больше?"
     Ulyana Sad "Пойми, я же переживаю за них. А тут какой-то подозрительный мужик в лесу."
     MainHero "Это я подозрительный?"
     Ulyana Thinking "А как тебя описать?"
     MainHero "Справедливо..."
-    show Ulyana at midleft    
-    show Yana Confused at midright
+    show Ulyana at left    
+    show Yana Confused at right
     Yana "Ребят, смотрите!"
     Ulyana "Там что, Алина?"
     Yana Scared "Да! И за ней кто-то гонится!"
@@ -577,7 +582,7 @@ label start:
     hide Ulyana
     hide Alina
 
-    show image("BG/MorningField.png") with Fade(1, 1.5, 1)
+    show image("BG/BonfireMorning.png") with Fade(1, 1.5, 1)
     play music 'toska.ogg' fadein 1
     show Alina Idle at left, four
     show Yana Idle at midleft, four
@@ -618,40 +623,40 @@ label start:
             Ulyana "Хорошо. Решение принято большинством голосов. Выдвигаемся!"
 
     scene image("BG/ForestWithLake.png") with dissolve
-    "Пока мы шли я немного овладел каждой из сил девочек. Конечно, не идеально, но они помогали мне разобраться.
-    Я стал не таким бесполезным. Все понимали, что разговаривать злыдень, скорее всего, не станет."
+    "Пока мы шли я немного овладел каждой из сил девочек. Конечно, не идеально, но они помогали мне разобраться."
+    "Я стал не таким бесполезным. Все понимали, что разговаривать злыдень, скорее всего, не станет."
     "На этот случай Ульяна при помощи Алины разработала план действий. И, когда мы уже почти достигли цели, у нас состоялся последний разговор."
     stop music fadeout 1
 
     scene image("BG/BonfireField.png") with fade
+    show Diana Idle at left, four
     show Yana Idle at midleft, four
     show Ulyana Idle at midright, four
-    show Diana Idle at left, four
     show Alina Idle at right, four
     Ulyana "Тебе нельзя биться в одиночку, ты далеко не идеально владеешь силами. Лучше, если ты будешь помогать кому-то из нас."
     Alina "Подумай, какая из сил тебе нравится больше, с какой ты лучше управляешься."
     menu:
-        "Выбрать Яну":
-            MainHero "Я буду помогать Яне."
-            Yana Smiling "Супер! Будем вместе отвлекать на себя часть противников!"
-            $ PointYana += 1
-            $ CastleChoice = "Yana Idle"
-        "Выбрать Алину":
-            MainHero "Я буду помогать Алине."
-            Alina Smiling "Хорошо, тогда вместе будем обезвреживать тех, кого ни Яне, ни Диане не удастся отвлечь."
-            $ PointAlina += 1
-            $ CastleChoice = "Alina Idle"
-        "Выбрать Диану":
+        "Выбрать {color=#fc4db6}Диану{/color}":
             MainHero "Я буду помогать Диане."
             Diana Smiling "Ура! Тогда вместе их заблокируем!"
             $ PointDiana += 1
             $ CastleChoice = "Diana Idle"
-        "Выбрать Ульяну":
+        "Выбрать {color=#e48942}Яну{/color}":
+            MainHero "Я буду помогать Яне."
+            Yana Smiling "Супер! Будем вместе отвлекать на себя часть противников!"
+            $ PointYana += 1
+            $ CastleChoice = "Yana Idle"
+        "Выбрать {color=#4ee4ff}Ульяну{/color}":
             MainHero "Я буду помогать Ульяне."
             Ulyana Proud "Ладно, вроде твой голем сможет продержаться некоторое время."
             Ulyana "Время уже позднее, давайте спать ложиться, завтра тяжёлый день."
             $ PointUlyana += 1
             $ CastleChoice = "Ulyana Idle"
+        "Выбрать {color=#82f364}Алину{/color}":
+            MainHero "Я буду помогать Алине."
+            Alina Smiling "Хорошо, тогда вместе будем обезвреживать тех, кого ни Яне, ни Диане не удастся отвлечь."
+            $ PointAlina += 1
+            $ CastleChoice = "Alina Idle"
     scene black with Fade(1, 0.5, 1)
     hide Ulyana
     hide Diana
@@ -668,15 +673,16 @@ label start:
     Diana "Удачи, девочки! Берегите себя!"
     scene black with fade
     if CastleChoice == "Yana Idle":
-        call CastleWithYana
+        call CastleWithYana from _call_CastleWithYana
     elif CastleChoice == "Alina Idle":
-        call CastleWithAlina
+        call CastleWithAlina from _call_CastleWithAlina
     elif CastleChoice == "Diana Idle":
-        call CastleWithDiana
+        call CastleWithDiana from _call_CastleWithDiana
     else:
-        call CastleWithUlyana
+        call CastleWithUlyana from _call_CastleWithUlyana
 
     scene image("BG/HeroRoom.png") with dissolve
+    stop music
     MainHero "{sc}ААААААААААА{/sc}"
     MainHero "Что? Я спал?"
     scene black with dissolve
@@ -715,7 +721,7 @@ label TurnLeft:
     MainHero "И что это было?... Ну, я живой и нормально."
     show black with dissolve
     show text "{size=+20}Некоторое время спустя" with ComposeTransition(Pause(2), after=dissolve)
-    play music "Army.mp3"
+    play music "you_re_in_the_army_now.ogg"
     scene image("BG/Army.png") 
     show Voenkom at scale(0.9), center
     Voenkom "ОЛУХИ!"
@@ -734,6 +740,7 @@ label TurnLeft:
     return
 
 label CastleWithYana:
+    play music "boss_fight.ogg"
     scene image("BG/InsideTheCastle.png") with fade
     show Yana Idle
     Yana "Тебе просто надо привлечь их внимание и сделать так, чтобы они побежали за тобой. Главное не дай им себя догнать!"
@@ -776,6 +783,7 @@ label CastleWithYana:
 
 
 label CastleWithDiana:
+    play music "boss_fight.ogg"
     scene image("BG/InsideTheCastle.png")
     show Diana Idle
     Diana "Ну что? Время творить?"
@@ -793,7 +801,7 @@ label CastleWithDiana:
     MainHero "Диана!"
     menu:
         "Помочь Диане":
-            MainHero "Алина, бежим!"
+            MainHero "Диана, бежим!"
             MainHero "Я отвлеку их на себя, а ты уходи!"
             Diana "Стой, нет! Что ты будешь делать если они тебя догонят?"
             MainHero "Я знаю что делать, у меня есть план."
@@ -813,6 +821,7 @@ label CastleWithDiana:
 
     
 label CastleWithAlina:
+    play music "boss_fight.ogg"
     scene image("BG/InsideTheCastle.png")
     show Alina Idle
     Alina "Так-с, главное не шуми, мы должны оставаться незаметными."
@@ -853,6 +862,7 @@ label CastleWithAlina:
         
 
 label CastleWithUlyana:
+    play music "boss_fight.ogg"
     scene image("BG/InsideTheCastle.png")
     show Ulyana Excited
     Ulyana "Главное не мешайся под ногами. Я сделаю всё сама."
@@ -877,14 +887,14 @@ label CastleWithUlyana:
     Ulyana "Их слишком много! Надо уходить!"
     menu:
         "Помочь Ульяне":
-           MainHero "Я отвлеку их на себя, а ты уходи!"
-           Ulyana Excited"Стой, нет! Что ты будешь делать?"
-           MainHero "У меня есть план."
-           Ulyana Pout "Хорошо, верю в тебя!"
-           scene black with fade
-           "Правда в том, что я не знаю что делать..."
-           $ FinalChoice = "Help"
-           return
+            MainHero "Я отвлеку их на себя, а ты уходи!"
+            Ulyana Excited"Стой, нет! Что ты будешь делать?"
+            MainHero "У меня есть план."
+            Ulyana Pout "Хорошо, верю в тебя!"
+            scene black with fade
+            "Правда в том, что я не знаю что делать..."
+            $ FinalChoice = "Help"
+            return
         "Сбежать":
             "Надо бежать!"
             scene image("BG/InsideTheCastle3.png")
@@ -895,6 +905,7 @@ label CastleWithUlyana:
 
 label SecondEnding:
     scene image("BG/Polytech.png")
+    "Это, конечно, не РТФ, но... {w}Плюсов я не вижу..."
     "Вот так значит... В шарагу после одиннадцати классов... Да я герой..."
     "В целом я не удивлён... Мне не особо есть разница где чалиться следующие несколько лет..."
     show expression CastleChoice

@@ -127,8 +127,10 @@ python early:
         
     def scan_ip(ip):
         if ip not in network:
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             terminal_lines.append("ОШИБКА: Данный IP-адрес не найден")
         elif not network[ip][2]:
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             terminal_lines.append("ОШИБКА: Хост недоступен")
         else:
             terminal_lines.append(network[ip][1])
@@ -147,12 +149,14 @@ python early:
                 terminal_lines.append(message)
                 renpy.pause(1)
             renpy.pause(2)
-            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
+            renpy.sound.play('audio/games/alina/success.ogg', relative_volume=0.5)
             terminal_lines.append(f"\nПароль найден: {monsters['14.8.5.8']}")
             show_hint()
         elif ip in ["2.4.84.4", "9.11.3.8"]:
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             terminal_lines.append("ОШИБКА: На данном сервере не найдена уязвимость")    
         else:
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             terminal_lines.append("ОШИБКА: Не удалось установить связь с сервером")
         
     def sqlmap_host(ip):
@@ -172,9 +176,11 @@ python early:
     def sqlmap_dump(ip, table):
         if ip != "2.4.84.4":
             terminal_lines.append("ОШИБКА: Невозможно подключиться к серверу")
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             return
         if table != "users":
             terminal_lines.append(f"ОШИБКА: Таблица \"{table}\" не найдена")
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             return
         messages = [
             "Выгрузка таблицы \"users\"...",
@@ -183,7 +189,7 @@ python early:
         for message in messages:
             terminal_lines.append(message)
             renpy.pause(1)
-        renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
+        renpy.sound.play('audio/games/alina/success.ogg', relative_volume=0.5)
         terminal_lines.append(f"+---------------------+\n| user |   password   |\n+---------------------+\n| root | {monsters[ip].center(12)} |\n+---------------------+")
         show_hint()
         
@@ -193,14 +199,17 @@ python early:
                 terminal_lines.append(f"Проверка связки 'root:{password}'")
                 renpy.pause(0.5)
             terminal_lines.append("Найдено совпадение!")
-            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
+            renpy.sound.play('audio/games/alina/success.ogg', relative_volume=0.5)
             terminal_lines.append(f"Пароль {monsters[ip]}")
             show_hint()
         elif ip == "9.11.3.8" and file_name != "passwords.txt":
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             terminal_lines.append("ОШИБКА: Указанный файл не найден")
         elif ip in ["2.4.84.4", "14.8.5.8"]: 
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             terminal_lines.append("ОШИБКА: У данного монстра нет такой уязвимости")
         else:
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             terminal_lines.append("ОШИБКА: Данный IP адрес не является монстром")
 
     def connect(ip):
@@ -227,6 +236,7 @@ python early:
             for i in files[file]:
                 terminal_lines.append(i)
         else:
+            renpy.sound.play('audio/games/alina/denied.ogg', relative_volume=0.5)
             terminal_lines.append("ОШИБКА: Указанный файл не найден")
 
     

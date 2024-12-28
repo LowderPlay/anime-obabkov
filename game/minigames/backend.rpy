@@ -69,7 +69,7 @@ transform hold:
 screen backend_screen:
     frame:
         xysize (1920, 1080)
-        background "#2b2b2be0"
+        background "#00000000"
         at hold
 
         frame:
