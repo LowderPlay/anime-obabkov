@@ -195,7 +195,7 @@ transform bucket(x, y, velocity):
 
 define current_step = 0
 define commands = [[]]
-define max_commands = 12
+define max_commands = 15
 
 python early:
     directions = [(0, -1), (1, 0), (0, 1), (-1, 0)]
