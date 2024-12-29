@@ -904,6 +904,7 @@ label CastleWithUlyana:
             return
 
 label SecondEnding:
+    play music "toska.ogg"
     scene image("BG/Polytech.png")
     "Это, конечно, не РТФ, но... {w}Плюсов я не вижу..."
     "Вот так значит... В шарагу после одиннадцати классов... Да я герой..."
@@ -921,11 +922,15 @@ label SecondEnding:
     return
 
 label ThirdEnding:
+    play music "ending.ogg"
     scene image("BG/RTF.png")
     "Воу... Я правда поступил?"
     "Когда я успел так измениться?..."
     show expression CastleChoice
-    Girl "Привет! Ты случайно не с *название направления*?"
+    if CastleChoice == "Alina Idle":
+        Girl "Привет! Ты случайно не с информационной безопасности?"
+    else:
+        Girl "Привет! Ты случайно не с программной инженерии?"
     "Что? Это она? Что она тут делает?"
     MainHero "Да..."
     Girl "Супер! Наставники попросили всех собраться, пойдём!"
