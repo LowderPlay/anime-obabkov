@@ -23,7 +23,7 @@ define gui.show_name = False
 
 ## Версия игры.
 
-define config.version = "0.3"
+define config.version = "0.3.1"
 
 
 ## Текст, помещённый в экран "Об игре". Поместите текст между тройными скобками.
@@ -52,6 +52,8 @@ Monocraft font - Idrees Hassan.
 
 "Nineteen Eighty Seven" font - Chequered Ink Ltd.
 
+"Boombox Song 5" - ZedFox
+
 """)
 
 
@@ -59,7 +61,7 @@ Monocraft font - Idrees Hassan.
 ## постройке дистрибутивов. Оно должно содержать текст формата ASCII и не должно
 ## содержать пробелы, двоеточия и точки с запятой.
 
-define build.name = "arizona_bebrazzz"
+define build.name = "arizona_bebras"
 
 
 ## Звуки и музыка ##############################################################
